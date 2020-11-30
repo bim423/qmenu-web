@@ -1,3 +1,10 @@
+.bg-login {
+  background: url("../assets/img/bg-login.jpg");
+}
+.bg-login:before {
+  background: rgba(0, 0, 0, 0.37);
+}
+
 .stat-card {
   border: 0;
   border-radius: 0.5rem;
