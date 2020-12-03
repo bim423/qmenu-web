@@ -23,29 +23,45 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
-                <h1 class="my-4">Dashboard</h1>
+                <h1 class="my-4 text-danger">Dashboard</h1>
 
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4 raised stat-card">
-                            <div class="card-body">Daily Revenue</div>
+                        <div class="card text-white mb-4 stat-card">
+                            <div class="card-body">
+                                <h4>Daily Revenue</h4>
+                                <h5>$23,220</h5>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4 raised stat-card">
-                            <div class="card-body">Daily Orders</div>
+                        <div class="card text-white mb-4 stat-card">
+                            <div class="card-body">
+                                <h4>Orders Today</h4>
+                                <h5>1909</h5>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-success text-white mb-4 raised stat-card">
-                            <div class="card-body">Monthly Revenue</div>
+                        <div class="card text-white mb-4 stat-card">
+                            <div class="card-body">
+                                <h4>Monthly Revenue</h4>
+                                <h5>$190,213</h5>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-primary text-white mb-4 raised stat-card">
-                            <div class="card-body">Monthly Orders</div>
+                        <div class="card text-white mb-4 stat-card">
+                            <div class="card-body">
+                                <h4>Monthly Orders</h4>
+                                <h5>10213</h5>
+                            </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-xl-6">
@@ -96,8 +112,7 @@
         crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
 <script src="js/addons/chart.js"></script>
-<script src="assets/demo/chart-area-demo.js"></script>
-<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="js/controller/dashboard.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="assets/demo/datatables-demo.js"></script>
