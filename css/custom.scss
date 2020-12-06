@@ -9,31 +9,34 @@ body {
   background: #fefefe !important;
 }
 
-.bg-login {
-  background: url("../assets/img/bg-login.jpg");
-  &:before {
-    background: rgba(0, 0, 0, 0.37);
+a {
+  color: crimson;
 
+  &:hover {
+    color: crimson;
   }
+}
+
+.bg-login {
+  background: url("assets/img/bg-login.jpg");
 }
 
 .card {
   border: 0;
   background: #ffffff;
-  color: crimson;
+
   border-radius: 0.5rem;
   box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2), 0 0 8px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 2.5rem;
 
   .card-header {
     border: 0;
+    color: crimson;
     border-radius: .5rem .5rem 0 0;
   }
 }
 
 .stat-card {
-
-
   .card-body {
     padding: 18px;
     color: #000;
@@ -48,6 +51,22 @@ body {
       font-weight: 700;
     }
   }
+}
+
+.table-recent-orders {
+  .order-detail {
+    font-weight: bold !important;
+  }
+
+  .order-status {
+    font-weight: bold !important;
+  }
+
+  .order-cost {
+    font-weight: bold !important;
+    text-align: right;
+  }
+
 }
 
 .raised {

@@ -2,23 +2,27 @@ body {
   background: #fefefe !important;
 }
 
+a {
+  color: crimson;
+}
+a:hover {
+  color: crimson;
+}
+
 .bg-login {
   background: url("../assets/img/bg-login.jpg");
-}
-.bg-login:before {
-  background: rgba(0, 0, 0, 0.37);
 }
 
 .card {
   border: 0;
   background: #ffffff;
-  color: crimson;
   border-radius: 0.5rem;
   box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2), 0 0 8px 0 rgba(0, 0, 0, 0.19);
   margin-bottom: 2.5rem;
 }
 .card .card-header {
   border: 0;
+  color: crimson;
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
@@ -33,6 +37,17 @@ body {
 .stat-card .card-body h5 {
   font-size: 2.25rem;
   font-weight: 700;
+}
+
+.table-recent-orders .order-detail {
+  font-weight: bold !important;
+}
+.table-recent-orders .order-status {
+  font-weight: bold !important;
+}
+.table-recent-orders .order-cost {
+  font-weight: bold !important;
+  text-align: right;
 }
 
 .raised {

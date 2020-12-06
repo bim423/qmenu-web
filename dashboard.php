@@ -61,8 +61,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
+
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="card mb-4">
@@ -87,17 +87,58 @@
                         </div>
                     </div>
 
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <svg class="svg-inline--fa fa-table fa-w-16 mr-1" aria-hidden="true" focusable="false"
-                                 data-prefix="fas" data-icon="table" role="img" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 512 512" data-fa-i2svg="">
-                                <path fill="currentColor"
-                                      d="M464 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM224 416H64v-96h160v96zm0-160H64v-96h160v96zm224 160H288v-96h160v96zm0-160H288v-96h160v96z"></path>
-                            </svg><!-- <i class="fas fa-table mr-1"></i> Font Awesome fontawesome.com -->
-                            Recent Orders
+                    <!-- Recent Orders Table -->
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Recent Orders
+                                <span class="float-right"><a href="order-history.php">More</a></span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table-recent-orders">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>A1</td>
+                                                <td class="order-detail">2x Turkish Tea<br>
+                                                    1x Margarita Pizza</td>
+                                                <td class="text-danger order-status">Pending</td>
+                                                <td class="order-cost">$ 45</td>
+                                            </tr>
+                                            <tr>
+                                                <td>A2</td>
+                                                <td class="order-detail">2x Café Americano<br>
+                                                    1x Turkish Tea</td>
+                                                <td class="text-success order-status">Delivered</td>
+                                                <td class="order-cost">$ 45</td>
+                                            </tr>
+                                            <tr>
+                                                <td>A4</td>
+                                                <td class="order-detail">1x Royal Pizza<br>
+                                                    1x Margarita Pizza<br>
+                                                    1x Napolitana Pizza
+                                                    </td>
+                                                <td class="text-warning order-status">Processing</td>
+                                                <td class="order-cost">$ 75</td>
+                                            </tr>
+                                            <tr>
+                                                <td>A5</td>
+                                                <td class="order-detail">2x Café Americano</td>
+                                                <td class="text-success order-status">Delivered</td>
+                                                <td class="order-cost">$ 15</td>
+                                            </tr>
+                                            <tr>
+                                                <td>B2</td>
+                                                <td class="order-detail">2x Turkish Tea<br>
+                                                <td class="text-success order-status">Delivered</td>
+                                                <td class="order-cost">$ 5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
 

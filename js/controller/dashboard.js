@@ -1,6 +1,11 @@
 /**
  * Controller script for the dashboard
  **/
+$(document).ready(function () {
+    // TODO: Get stats from API
+
+});
+
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
@@ -51,8 +56,6 @@ var myLineChart = new Chart(ctx, {
         }
     }
 });
-
-
 // Bar Chart Example
 var barChart = document.getElementById("myBarChart");
 var myBarChart = new Chart(barChart, {
