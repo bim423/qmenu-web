@@ -1,0 +1,121 @@
+body {
+  font-family: "Noto Sans", sans-serif;
+  background-color: #f7f7f7 !important;
+}
+
+.menu-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.menu-container .menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-container .menu-header .menu-header-logo {
+  max-height: 150px;
+}
+
+.submenu-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #ffffff;
+}
+.submenu-container .submenu-header {
+  color: #a60f2c;
+  border-bottom-color: #606060;
+  border-bottom-style: solid;
+  border-bottom-width: 0.1rem;
+}
+.submenu-container .submenu-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 4px;
+  border-bottom: rgba(220, 20, 60, 0.25) dotted 2px;
+}
+.product-container .product-info-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.product-container .product-info-row .product-name {
+  margin: 0;
+  width: 70%;
+}
+.product-container .product-info-row .product-name h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.product-container .product-info-row .product-price {
+  text-align: right;
+  margin: 0;
+  width: 30%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.product-container .product-info-row .product-price .product-quantity {
+  border-radius: 10rem;
+  font-size: 0.75rem;
+  font-weight: bolder;
+  background: orange;
+  margin-right: 1rem;
+  padding: 0.15rem 0.5rem;
+  color: white;
+}
+.product-container .product-detail-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.product-container .product-detail-row .product-description {
+  font-size: 0.8rem;
+  color: #989898;
+  width: 80%;
+}
+.product-container .product-detail-row .product-actions {
+  text-align: right;
+  width: 20%;
+}
+.product-container .product-detail-row .product-actions button {
+  width: 1.4rem;
+  height: 1.4rem;
+  background: white;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-radius: 0.3rem;
+  padding: 0;
+}
+.product-container .product-detail-row .product-actions button span {
+  margin: auto;
+}
+.product-container .product-detail-row .product-actions .action-btn-add {
+  border-color: green;
+  color: green;
+}
+.product-container .product-detail-row .product-actions .action-btn-add:hover {
+  background: green;
+  color: white;
+}
+.product-container .product-detail-row .product-actions .action-btn-add:active {
+  background: white;
+  color: green;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove {
+  border-color: crimson;
+  color: crimson;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove:hover {
+  background: crimson;
+  color: white;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove:active {
+  background: white;
+  color: crimson;
+}
+
+/*# sourceMappingURL=menu.css.map */
