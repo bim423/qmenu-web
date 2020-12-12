@@ -6,6 +6,7 @@ body {
 .menu-container {
   max-width: 800px;
   margin: 0 auto;
+  padding-bottom: 5rem;
 }
 .menu-container .menu-header {
   display: flex;
@@ -45,7 +46,7 @@ body {
 }
 .product-container .product-info-row .product-name {
   margin: 0;
-  width: 70%;
+  width: 65%;
 }
 .product-container .product-info-row .product-name h3 {
   margin: 0;
@@ -54,7 +55,7 @@ body {
 .product-container .product-info-row .product-price {
   text-align: right;
   margin: 0;
-  width: 30%;
+  width: 35%;
   font-size: 1rem;
   font-weight: bold;
 }
@@ -63,7 +64,7 @@ body {
   font-size: 0.75rem;
   font-weight: bolder;
   background: orange;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   padding: 0.15rem 0.5rem;
   color: white;
 }
@@ -116,6 +117,64 @@ body {
 .product-container .product-detail-row .product-actions .action-btn-remove:active {
   background: white;
   color: crimson;
+}
+.product-container .product-detail-row .product-actions .btn-hidden {
+  display: none;
+}
+
+.bottom-bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.bottom-bar .order-summary-container {
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  max-width: 800px;
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.9);
+}
+.bottom-bar .order-summary-container .order-detail-column {
+  width: 75%;
+  padding-left: 16px;
+}
+.bottom-bar .order-summary-container .order-detail-column .order-desk {
+  color: darkgrey;
+}
+.bottom-bar .order-summary-container .order-detail-column .order-cost {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #a60f2c;
+}
+.bottom-bar .order-summary-container .order-confirm-column {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  text-align: right;
+  width: 25%;
+  padding-right: 16px;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn {
+  border: green solid 2px;
+  border-radius: 0.35rem;
+  background: #36a836;
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem 1.5rem;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn:hover {
+  cursor: pointer;
+  background: green;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn:active {
+  opacity: 0.5;
 }
 
 /*# sourceMappingURL=menu.css.map */

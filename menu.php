@@ -1,4 +1,75 @@
 <?php
+
+// TODO: Retrieve Menu from the API
+$menu_data = file_get_contents("assets/demo/menu.json");
+$menu_obj = json_decode($menu_data);
+
+/**
+ * Generates the menu content
+ * @param $menu_object
+ * @return string HTML code of menu
+ */
+function get_menu_content($menu_object){
+    // Build menu
+    $menu = "";
+    $sub_menus = $menu_object->menu;
+    foreach ($sub_menus as $sub_menu) {
+        // Build each sub menu
+        $category_name = $sub_menu->category;
+        $description = $sub_menu->descripton;
+        $products = $sub_menu->products;
+        // Get product list
+        $products_content = get_products_content($products);
+
+        $sub_menu_content = <<<HTML
+        <div class="submenu-container">
+            <div class="submenu-header"> <h2>$category_name</h2> </div>
+            <div class="submenu-description">$description</div>
+            $products_content    
+        </div>
+HTML;
+        // Add submenu to the menu
+        $menu .= $sub_menu_content;
+    }
+
+    // Print out
+    return $menu;
+}
+
+/**
+ * Generates the product containers
+ * @param $products array Array of products
+ * @return string HTML code of the product list
+ */
+function get_products_content($products){
+    $products_content = "";
+    foreach ($products as $product) {
+        $product_price = number_format($product->price, 2);
+        $products_content .= <<<HTML
+        <div class="product-container">
+            <div class="product-info-row">
+                <div class="product-name"><h3>$product->product_name</h3></div>
+                <div class="product-price">\$ $product_price</div>
+            </div>
+            <div class="product-detail-row">
+                <div class="product-description">$product->description</div>
+                <div class="product-actions">
+                    <button class="action-btn-remove btn-hidden" data-product_id="$product->product_id">
+                        <span class="fa fa-minus"></span>
+                    </button>
+                    <button class="action-btn-add" data-product_id="$product->product_id">
+                        <span class="fa fa-plus"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+HTML;
+    }
+
+    return $products_content;
+}
+
+
 ?>
 <html lang="en">
 <head>
@@ -15,94 +86,27 @@
 </head>
 <body>
 
-
 <div class="menu-container">
     <div class="menu-header">
         <img class="menu-header-logo" src="assets/img/logo.jpg" />
     </div>
-
-    <div class="submenu-container">
-        <div class="submenu-header"> <h2>Hot Beverages</h2> </div>
-
-        <div class="product-container">
-            <div class="product-info-row">
-                <div class="product-name"><h3>Turkish tea</h3></div>
-                <div class="product-price">$ 3.50</div>
-            </div>
-            <div class="product-detail-row">
-                <div class="product-description">Tradtional Turkish black tea</div>
-                <div class="product-actions">
-                    <button class="action-btn-remove">
-                        <span class="fa fa-minus"></span>
-                    </button>
-                    <button class="action-btn-add">
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-container">
-            <div class="product-info-row">
-                <div class="product-name"><h3>Espresso</h3></div>
-                <div class="product-price">$ 3.50</div>
-            </div>
-            <div class="product-detail-row">
-                <div class="product-description">Tradtional Turkish black tea</div>
-                <div class="product-actions">
-                    <button class="action-btn-remove">
-                        <span class="fa fa-minus"></span>
-                    </button>
-                    <button class="action-btn-add">
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="product-container">
-            <div class="product-info-row">
-                <div class="product-name"><h3>Latte</h3></div>
-                <div class="product-price">$ 3.50</div>
-            </div>
-            <div class="product-detail-row">
-                <div class="product-description">Tradtional Turkish black tea</div>
-                <div class="product-actions">
-                    <button class="action-btn-remove">
-                        <span class="fa fa-minus"></span>
-                    </button>
-                    <button class="action-btn-add">
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="submenu-container">
-        <div class="submenu-header"> <h2>Pizza</h2> </div>
-
-        <div class="product-container">
-            <div class="product-info-row">
-                <div class="product-name"><h3>Turkish tea</h3></div>
-                <div class="product-price"><span class="product-quantity">Qty: 2</span> $ 3.50</div>
-            </div>
-            <div class="product-detail-row">
-                <div class="product-description">Tradtional Turkish black tea</div>
-                <div class="product-actions">
-                    <button class="action-btn-remove">
-                        <span class="fa fa-minus"></span>
-                    </button>
-                    <button class="action-btn-add">
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <!--<span class="product-quantity">Qty: 2</span>-->
+    <?php echo get_menu_content($menu_obj);?>
 </div>
+
+<div class="bottom-bar">
+    <div class="order-summary-container">
+        <div class="order-detail-column">
+            <div class="order-desk">Your Desk: A1</div>
+            <div class="order-cost">$ 72.00</div>
+        </div>
+        <div class="order-confirm-column">
+            <button class="confirm-order-btn">Order</button>
+        </div>
+    </div>
+</div>
+
+
 <!-- Scripts -->
 <script src="js/vendor/jquery-3.5.1.slim.js" crossorigin="anonymous"></script>
 </body>
