@@ -1,0 +1,94 @@
+.grid-container{
+  padding: 30px;
+}
+.button{
+  background-color: #b9bbbe;
+  color: white;
+  text-align: center;
+  border: #b9bbbe;
+  padding: 16px 30px ;
+  cursor: pointer;
+  border-radius: 12px;
+  margin: 8px;
+}
+.new_category_button{
+  border-style: dashed;
+  font-size: 16px;
+  border-radius: 12px;
+  width: 80%;
+  padding: 12px 30px;
+  color: #6c757d;
+}
+.new_category_button:hover{
+  background-color: #fff3cd;
+}
+.cancel_button{
+  background-color: #a71d2a;
+  font-size: 14px;
+}
+.add_button{
+  background-color: #115c39;
+  font-size: 14px;
+}
+
+input{
+  width: 100%;
+  padding: 16px 30px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.category_card{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 80%;
+  padding: 16px 30px;
+  margin: 12px;
+}
+.category_card:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.flex_card{
+  display: flex;
+  flex-direction: row;
+}
+.button_bar{
+  width: 80%;
+  padding: 8px;
+  float: right;
+}
+.button_bar_inside{
+  color: #13611685;
+  float: right;
+}
+.small_button{
+  border: none;
+  padding: 8px;
+  color: #6c757d;
+  background-color: #b9bbbe;
+}
+.small_button:hover{
+  background-color: #fff3cd;
+}
+.category_name_label{
+  width: 20%;
+}
+.product_name_label{
+  font-size: 25px;
+  color: #a71d2a;
+}
+.price_label{
+  float: right;
+}
+.products_card{
+  padding: 16px 30px ;
+  background-color: ivory;
+  border-radius: 12px;
+  width: 70%;
+  margin: 8px;
+}
+.trash{
+  float: right;
+}
