@@ -3,8 +3,35 @@ $(document).ready(function (){
     var t = 0;
     var category_products = [];
 
-    $("#category_button").click(function (){
-        $("#main").append("<div class=\"grid-container\" id='category_form'>\n" +
+    $("#btn_new_category").click(function (){
+        //TODO: Show category add form
+        $("#editor").append(`
+            <div class="card category_form_card">
+                <div class="form-row">
+                    <div class="col">
+                        <label>Category name:</label>
+                    </div>
+                    <div class="col">
+                        <input id="input_category_name_${i}" type="text" class="form-control" placeholder="Category name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label>Description:</label>
+                    </div>
+                    <div class="col">
+                        <input id="input_category_description_${i}" type="text" class="form-control" placeholder="Description">
+                    </div>
+                </div>
+                <div class="form-row btn-row">
+                    <button id="btn_add_category_${i}" type="button" class="btn btn-danger">Cancel</button>
+                    <button id="btn_cancel_category_${i}" type="button" class="btn btn-success">Add</button>
+                </div>
+            </div>
+        `);
+
+        /*
+        $("#editor").append("<div class=\"editor-container\" id='category_form'>\n" +
             "    <label><b>Category Name</b></label>\n" +
             "    <input type=\"text\" width=\"100%\" id='category_name_input"+i+"'>\n" +
             "    <label><b>Description</b></label>\n" +
@@ -12,7 +39,8 @@ $(document).ready(function (){
             "    <button id='category_cancel_button"+i+"' class=\"button cancel_button remove_button\"><b>Cancel</b></button>\n" +
             "    <button id='category_add_button"+i+"' data-id='" + i + "' class=\"button add_button\"><b>Add</b></button>\n" +
             "</div>");
-        $("#category_add_button"+i).click(function (){
+        */
+        $("#btn_add_category"+i).click(function (){
             var data_id = $( this ).attr("data-id");
             var category_input = $("#category_name_input"+data_id).val();
             var category_description_input = $("#category_description_input"+data_id).val();
@@ -51,7 +79,7 @@ $(document).ready(function (){
     $(document).on('click','.add_product',function (){
         var data_id = $(this).attr('data-id');
 
-        $("#product_div" + data_id).append("<div class=\"grid-container\" id='product_form" + data_id + "'>\n" +
+        $("#product_div" + data_id).append("<div class=\"editor-container\" id='product_form" + data_id + "'>\n" +
             "        <label>Name</label>\n" +
             "        <input id='product_name" + data_id + "' type=\"text\"  >\n" +
             "        <label>Description</label>\n" +
@@ -107,3 +135,8 @@ $(document).ready(function (){
         };
     })
 });
+
+/** Make API request and add category to the UI**/
+function addNewCategory() {
+
+}
