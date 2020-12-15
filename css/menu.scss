@@ -109,6 +109,7 @@ body {
       .action-btn-add {
         border-color: green;
         color: green;
+        cursor: pointer;
 
         &:hover {
           background: green;
@@ -124,6 +125,7 @@ body {
       .action-btn-remove {
         border-color: crimson;
         color: crimson;
+        cursor: pointer;
 
         &:hover {
           background: crimson;
@@ -135,9 +137,7 @@ body {
           color: crimson;
         }
       }
-      .btn-hidden {
-        display: none;
-      }
+
     }
   }
 
@@ -160,6 +160,8 @@ body {
     max-width: 800px;
     padding: 8px 0;
     background: rgba(255, 255, 255, 0.9);
+    animation-duration: 0.5s;
+    transition: 0.5s;
 
     .order-detail-column {
       width: 75%;
@@ -206,3 +208,6 @@ body {
   }
 }
 
+.hidden {
+  display: none;
+}

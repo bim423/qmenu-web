@@ -97,6 +97,7 @@ body {
 .product-container .product-detail-row .product-actions .action-btn-add {
   border-color: green;
   color: green;
+  cursor: pointer;
 }
 .product-container .product-detail-row .product-actions .action-btn-add:hover {
   background: green;
@@ -109,6 +110,7 @@ body {
 .product-container .product-detail-row .product-actions .action-btn-remove {
   border-color: crimson;
   color: crimson;
+  cursor: pointer;
 }
 .product-container .product-detail-row .product-actions .action-btn-remove:hover {
   background: crimson;
@@ -117,9 +119,6 @@ body {
 .product-container .product-detail-row .product-actions .action-btn-remove:active {
   background: white;
   color: crimson;
-}
-.product-container .product-detail-row .product-actions .btn-hidden {
-  display: none;
 }
 
 .bottom-bar {
@@ -139,6 +138,8 @@ body {
   max-width: 800px;
   padding: 8px 0;
   background: rgba(255, 255, 255, 0.9);
+  animation-duration: 0.5s;
+  transition: 0.5s;
 }
 .bottom-bar .order-summary-container .order-detail-column {
   width: 75%;
@@ -175,6 +176,10 @@ body {
 }
 .bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn:active {
   opacity: 0.5;
+}
+
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=menu.css.map */

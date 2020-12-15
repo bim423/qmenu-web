@@ -46,15 +46,15 @@ function get_products_content($products){
     foreach ($products as $product) {
         $product_price = number_format($product->price, 2);
         $products_content .= <<<HTML
-        <div class="product-container">
+        <div class="product-container" data-product_id="$product->product_id" data-price="$product_price">
             <div class="product-info-row">
                 <div class="product-name"><h3>$product->product_name</h3></div>
-                <div class="product-price">\$ $product_price</div>
+                <div class="product-price"><span class="product-quantity hidden" data-product_id="$product->product_id">Qty: 0</span>\$ $product_price</div>
             </div>
             <div class="product-detail-row">
                 <div class="product-description">$product->description</div>
                 <div class="product-actions">
-                    <button class="action-btn-remove btn-hidden" data-product_id="$product->product_id">
+                    <button class="action-btn-remove hidden" data-product_id="$product->product_id">
                         <span class="fa fa-minus"></span>
                     </button>
                     <button class="action-btn-add" data-product_id="$product->product_id">
@@ -81,6 +81,7 @@ HTML;
     <title>Restaurant - Menu</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
             crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/menu.css">
 </head>
@@ -95,10 +96,10 @@ HTML;
 </div>
 
 <div class="bottom-bar">
-    <div class="order-summary-container">
+    <div id="order-summary" class="order-summary-container" style="visibility: hidden">
         <div class="order-detail-column">
             <div class="order-desk">Your Desk: A1</div>
-            <div class="order-cost">$ 72.00</div>
+            <div id="order-cost" class="order-cost">$ 0.00</div>
         </div>
         <div class="order-confirm-column">
             <button class="confirm-order-btn">Order</button>
@@ -109,6 +110,7 @@ HTML;
 
 <!-- Scripts -->
 <script src="js/vendor/jquery-3.5.1.slim.js" crossorigin="anonymous"></script>
+<script src="js/controller/menu.js"></script>
 </body>
 </html>
 
