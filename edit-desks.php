@@ -19,16 +19,18 @@
     <?php include "inc/sidebar.php"?>
 
     <div id="layoutSidenav_content">
+
         <div class="container-fluid">
+            <h1 class="my-4">Edit Desks</h1>
             <div class="row">
                 <div class="col-sm-12 col-md-8">
                     <div class="card">
                         <table class="table desk-table">
                             <thead>
-                            <tr>
-                                <th scope="col">Desks</th>
-                                <th class="text-right" scope="col"><button class="btn btn-success">New Desk</button></th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Desks</th>
+                                    <th class="text-right" scope="col"><button class="btn btn-success">New Desk</button></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <tr>
@@ -155,11 +157,21 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <span class="fa fa-print"></span> Print QR codes
+                        </div>
+                        <div class="card-body">
+                            <div class="alert alert-info">Place the QR codes to the desks</div>
+                            <button class="btn btn-secondary btn-block text-left"><span class="fa fa-print"></span> Print all QR codes</button>
+                            <button class="btn btn-danger btn-block text-left"><span class="fa fa-file-pdf"></span> Download as PDF</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
-
         </div>
+
     </div>
 </div>
 <!--Modal section-->
@@ -182,6 +194,7 @@
         </div>
     </div>
 </section>
+<!--Scripts-->
 <script src="js/vendor/jquery-3.5.1.slim.js"></script>
-
+<script src="js/scripts.js"></script>
 </body>

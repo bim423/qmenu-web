@@ -19,7 +19,8 @@
     <?php include "inc/sidebar.php"?>
 
     <div id="layoutSidenav_content">
-        <div class="container" >
+        <div class="container-fluid" >
+            <h1 class="my-4">Edit Menu</h1>
             <div class="editor-container" id="editor">
                 <div id="category-list-container">
                     <div id="category-9" class="card category-card">
@@ -61,6 +62,8 @@
     </div>
 
 </div>
+<!--Scripts-->
 <script src="js/vendor/jquery-3.5.1.slim.js"></script>
 <script src="js/controller/edit-menu.js"></script>
+<script src="js/scripts.js"></script>
 </body>

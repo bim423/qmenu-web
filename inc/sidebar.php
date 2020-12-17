@@ -9,7 +9,7 @@
                 </a>
 
                 <div class="sb-sidenav-menu-heading">Restaurant</div>
-                <a  class="nav-link">
+                <a class="nav-link" href="edit-desks.php">
                     <div class="sb-nav-link-icon"><i class="fas fa-th"></i></div>
                     Desks
                 </a>
