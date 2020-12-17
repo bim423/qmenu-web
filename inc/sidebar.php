@@ -14,7 +14,7 @@
                     Desks
                 </a>
                 <a class="nav-link" href="edit-menu.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-th-list"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-utensils"></i></div>
                     Edit Menu
                 </a>
 
@@ -24,7 +24,7 @@
                     Order Terminal
                 </a>
                 <a class="nav-link" href="order-history.php">
-                    <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-history"></i></div>
                     Order History
                 </a>
 
