@@ -62,9 +62,9 @@ function addCategory(categoryName, categoryDescription) {
     $("#category-list-container").append(`
         <div id="category-${categoryId}" class="card category-card">
             <div class="card-header category-card-header">
-                <div class="col-category-info">
-                    <h2 class="category-name">${categoryName}</h2>
-                    <p class="category-description">${categoryDescription}</p>
+                <div class="col-category-info" id="category-info-${categoryId}">
+                    <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
+                    <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
                 </div>
                 <div class="col-category-actions">
                     <button id="btn-edit-category-${categoryId}" class="btn-category-action"><span class="fa fa-edit"></span></button>
@@ -88,18 +88,77 @@ function addCategory(categoryName, categoryDescription) {
         console.log(categoryId);
         setNewProductFormVisible(categoryId, true);
     })
+    $("#btn-edit-category-"+categoryId).click(function (){
+        console.log(categoryId);
+        editCategory(categoryId,categoryName,categoryDescription);
+    })
 
 
     showNewCategoryBtn();
 
     categoryIndex++;
 }
+function editCategory(categoryId,categoryName,categoryDescription){
+    let categoryContainer = $("#category-info-"+categoryId);
+    editCategoryButtonHide(categoryId);
+    addCategoryProductButtonHide(categoryId);
+    categoryContainer.html(`
+            <div class="form-row">
+                <div class="col">
+                    <label>Category name:</label>
+                </div>
+                <div class="col">
+                    <input id="input_category_name" type="text" class="form-control" placeholder="${categoryName}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <label>Description:</label>
+                </div>
+                <div class="col">
+                    <input id="input_category_description" type="text" class="form-control" placeholder="${categoryDescription}">
+                </div>
+            </div>
+            <div class="form-row btn-row">
+                <button id="btn_cancel_category" type="button" class="btn btn-danger">Cancel</button>
+                <button id="btn_edit_category" type="button" class="btn btn-success">Edit</button>
+            </div>`
+    );
+    $("#btn_edit_category").click(function (){
+        let categoryName = $("#input_category_name").val();
+        let categoryDescription = $("#input_category_description").val();
+        showEditCategory(categoryId,categoryName,categoryDescription)
+    });
+    $("#btn_cancel_category").click(function (){
+        let categoryName = $("#category-name-"+categoryId).val();
+        let categoryDescription = $("#category-description-"+categoryId).val();
+        showEditCategory(categoryId,categoryName,categoryDescription);
+    });
 
-/**
- * Sets the visiblity of the new product in the specified category
- * @param categoryId Sub menu id of the category that the form will be inserted into.
- * @param visible bool Needs to be set true when form is visible, false when the form is hidden
- */
+}
+function showEditCategory(categoryId,categoryName,categoryDescription){
+    let categoryNameLabel = $("#category-info-"+categoryId);
+    editCategoryButtonShow(categoryId);
+    addCategoryProductButtonShow(categoryId);
+    categoryNameLabel.replaceWith(`
+        <div class="col-category-info" id="category-info-${categoryId}">
+                    <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
+                    <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
+        </div>`
+    );
+}
+function editCategoryButtonHide(categoryId){
+    $("#btn-edit-category-"+categoryId).hide();
+}
+function addCategoryProductButtonHide(categoryId){
+    $("#btn-add-category-product-"+categoryId).hide();
+}
+function editCategoryButtonShow(categoryId){
+    $("#btn-edit-category-"+categoryId).show();
+}
+function addCategoryProductButtonShow(categoryId){
+    $("#btn-add-category-product-"+categoryId).show();
+}
 function setNewProductFormVisible(categoryId, visible) {
     let productFormContainer = $("#product-form-container-"+categoryId);
 
