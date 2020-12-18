@@ -95,6 +95,11 @@ function addCategory(categoryName, categoryDescription) {
     categoryIndex++;
 }
 
+/**
+ * Sets the visiblity of the new product in the specified category
+ * @param categoryId Sub menu id of the category that the form will be inserted into.
+ * @param visible bool Needs to be set true when form is visible, false when the form is hidden
+ */
 function setNewProductFormVisible(categoryId, visible) {
     let productFormContainer = $("#product-form-container-"+categoryId);
 

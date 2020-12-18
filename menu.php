@@ -68,8 +68,6 @@ HTML;
 
     return $products_content;
 }
-
-
 ?>
 <html lang="en">
 <head>
@@ -106,7 +104,6 @@ HTML;
         </div>
     </div>
 </div>
-
 
 <!-- Scripts -->
 <script src="js/vendor/jquery-3.5.1.slim.js" crossorigin="anonymous"></script>
