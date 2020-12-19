@@ -61,16 +61,19 @@ function addCategory(categoryName, categoryDescription) {
     let categoryId = categoryIndex
     $("#category-list-container").append(`
         <div id="category-${categoryId}" class="card category-card">
-            <div class="card-header category-card-header">
-                <div class="col-category-info" id="category-info-${categoryId}">
-                    <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
-                    <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
-                </div>
-                <div class="col-category-actions">
-                    <button id="btn-edit-category-${categoryId}" class="btn-category-action"><span class="fa fa-edit"></span></button>
-                    <button id="btn-add-category-product-${categoryId}" class="btn-category-action"><span class="fa fa-plus"></span></button>
+            <div id="category-header-container-${categoryId}">
+                <div class="card-header category-card-header">
+                    <div class="col-category-info" id="category-info-${categoryId}">
+                        <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
+                        <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
+                    </div>
+                    <div class="col-category-actions">
+                        <button id="btn-edit-category-${categoryId}" class="btn-category-action"><span class="fa fa-edit"></span></button>
+                        <button id="btn-add-category-product-${categoryId}" class="btn-category-action"><span class="fa fa-plus"></span></button>
+                    </div>
                 </div>
             </div>
+            
 
             <div id="category-card-body-${categoryId}" class="card-body category-card-body">
                 <div id="product-list-${categoryId}" class="product-list-container">
@@ -90,56 +93,64 @@ function addCategory(categoryName, categoryDescription) {
     })
     $("#btn-edit-category-"+categoryId).click(function (){
         console.log(categoryId);
-        editCategory(categoryId,categoryName,categoryDescription);
+        editCategoryForm(categoryId,categoryName,categoryDescription);
     })
-
 
     showNewCategoryBtn();
 
     categoryIndex++;
 }
-function editCategory(categoryId,categoryName,categoryDescription){
-    let categoryContainer = $("#category-info-"+categoryId);
-    editCategoryButtonHide(categoryId);
-    addCategoryProductButtonHide(categoryId);
-    categoryContainer.html(`
-            <div class="form-row">
-                <div class="col">
-                    <label>Category name:</label>
+function editCategoryForm(categoryId,categoryName,categoryDescription){
+    let categoryContainer = $("#category-"+categoryId);
+    $("#category-header-container-"+categoryId).hide();
+    $("#btn-edit-category-"+categoryId).hide();
+    $("#btn-add-category-product-"+categoryId).hide();
+    categoryContainer.append(`
+            <div class="category-form" id="category-form">
+                <div class="form-row">
+                    <div class="col">
+                        <label>Category name:</label>
+                    </div>
+                    <div class="col">
+                        <input id="input_category_name" type="text" class="form-control" placeholder="${categoryName}">
+                    </div>
                 </div>
-                <div class="col">
-                    <input id="input_category_name" type="text" class="form-control" placeholder="${categoryName}">
+                <div class="form-row">
+                    <div class="col">
+                        <label>Description:</label>
+                    </div>
+                    <div class="col">
+                        <input id="input_category_description" type="text" class="form-control" placeholder="${categoryDescription}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col">
-                    <label>Description:</label>
+                <div class="form-row btn-row">
+                    <button class="btn text-danger" id="btn_delete_category"><span class="fa fa-trash"></span></button>
+                    <button id="btn_cancel_category" type="button" class="btn btn-danger">Cancel</button>
+                    <button id="btn_edit_category" type="button" class="btn btn-success">Edit</button>
                 </div>
-                <div class="col">
-                    <input id="input_category_description" type="text" class="form-control" placeholder="${categoryDescription}">
-                </div>
-            </div>
-            <div class="form-row btn-row">
-                <button id="btn_cancel_category" type="button" class="btn btn-danger">Cancel</button>
-                <button id="btn_edit_category" type="button" class="btn btn-success">Edit</button>
             </div>`
     );
     $("#btn_edit_category").click(function (){
         let categoryName = $("#input_category_name").val();
         let categoryDescription = $("#input_category_description").val();
+        $("#category-header-container-"+categoryId).show();
         showEditCategory(categoryId,categoryName,categoryDescription)
+        $("#category-form").remove();
     });
     $("#btn_cancel_category").click(function (){
-        let categoryName = $("#category-name-"+categoryId).val();
-        let categoryDescription = $("#category-description-"+categoryId).val();
-        showEditCategory(categoryId,categoryName,categoryDescription);
+        $("#category-header-container-"+categoryId).show();
+        $("#category-form").remove();
+        $("#btn-edit-category-"+categoryId).show();
+        $("#btn-add-category-product-"+categoryId).show();
     });
-
+    $("#btn_delete_category").click(function (){
+        $("#category-"+categoryId).remove();
+    });
 }
 function showEditCategory(categoryId,categoryName,categoryDescription){
     let categoryNameLabel = $("#category-info-"+categoryId);
-    editCategoryButtonShow(categoryId);
-    addCategoryProductButtonShow(categoryId);
+    $("#btn-edit-category-"+categoryId).show();
+    $("#btn-add-category-product-"+categoryId).show();
     categoryNameLabel.replaceWith(`
         <div class="col-category-info" id="category-info-${categoryId}">
                     <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
@@ -147,18 +158,7 @@ function showEditCategory(categoryId,categoryName,categoryDescription){
         </div>`
     );
 }
-function editCategoryButtonHide(categoryId){
-    $("#btn-edit-category-"+categoryId).hide();
-}
-function addCategoryProductButtonHide(categoryId){
-    $("#btn-add-category-product-"+categoryId).hide();
-}
-function editCategoryButtonShow(categoryId){
-    $("#btn-edit-category-"+categoryId).show();
-}
-function addCategoryProductButtonShow(categoryId){
-    $("#btn-add-category-product-"+categoryId).show();
-}
+
 function setNewProductFormVisible(categoryId, visible) {
     let productFormContainer = $("#product-form-container-"+categoryId);
 
