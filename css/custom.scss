@@ -81,3 +81,49 @@ a {
     0 5px 5px -3px rgba(0, 0, 0, 0.4);
   }
 }
+
+/* Modal Styling */
+.modal {
+  background: rgba(0, 0, 0, 0.50);
+  opacity: 0;
+  display: block;
+  transition: opacity 0.5s;
+}
+
+.modal-content {
+  border-width: 0;
+  border-radius: .5rem;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2), 0 0 8px 0 rgba(0, 0, 0, 0.19);
+
+  .modal-header {
+    border: 0;
+    color: crimson;
+    border-radius: .5rem .5rem 0 0;
+    background: rgba(0, 0, 0, 0.03);
+    padding: 0.75rem;
+    align-items: center;
+
+    .btn-close {
+      border: none;
+      background: none;
+      font-size: 1.25rem;
+      padding: 0;
+      transition: 0.1s;
+      color: rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        color: crimson;
+      }
+
+   
+    }
+  }
+
+  .modal-body {
+    padding: 0.75rem;
+  }
+  .modal-footer {
+    border: 0;
+    padding-top: 0;
+  }
+}

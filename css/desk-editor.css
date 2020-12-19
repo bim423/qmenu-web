@@ -1,4 +1,11 @@
+.desk-table {
+  margin: 0;
+}
+.desk-table thead {
+  background: rgba(0, 0, 0, 0.02);
+}
 .desk-table thead th {
+  font-size: 1.15rem;
   vertical-align: middle;
 }
 .desk-table tr {

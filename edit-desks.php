@@ -1,3 +1,29 @@
+<?php
+// TODO: Get desks from API
+$response = file_get_contents("assets/demo/desk.json");
+$response_obj = json_decode($response);
+$desks = $response_obj->desks;
+
+
+
+function get_desk_editor_table_rows_content($desks){
+    $table_rows = "";
+    foreach ($desks as $desk) {
+        $table_rows .= <<<HTML
+        <tr data-desk-id="$desk->desk_id" data-desk-label="$desk->desk_label">
+            <th class="desk-table-label" scope="row">$desk->desk_label</th>
+            <td class="desk-table-actions">
+                <button class="btn-table-action text-primary" data-action="edit"><span class="fa fa-pen"></span></button>
+                <button class="btn-table-action text-danger" data-action="delete"><span class="fa fa-trash"></span></button>
+                <button class="btn-table-action text-success" data-action="code"><span class="fa fa-qrcode"></span></button>
+            </td>
+        </tr>
+HTML;
+    }
+    return $table_rows;
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -12,6 +38,7 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/desk-editor.css">
+    <link rel="stylesheet" href="css/qrcode.css">
 </head>
 <body class="sb-nav-fixed">
 <?php include "inc/nav.php"?>
@@ -33,126 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">A1</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A2</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A3</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A1</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A2</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A3</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A1</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A2</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A3</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A1</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A2</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A3</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A1</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A2</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">A3</th>
-                                <td class="desk-table-actions">
-                                    <button class="btn-table-action text-primary"><span class="fa fa-pen"></span></button>
-                                    <button class="btn-table-action text-danger"><span class="fa fa-trash"></span></button>
-                                    <button class="btn-table-action text-success"><span class="fa fa-qrcode"></span></button>
-                                </td>
-                            </tr>
+                            <?php echo get_desk_editor_table_rows_content($desks);?>
                             </tbody>
                         </table>
                     </div>
@@ -174,27 +82,11 @@
 
     </div>
 </div>
-<!--Modal section-->
-<section>
-    <div class="modal fade" id="desk-editor-modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="desk-editor-modal-title">Edit Desk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Forma
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <!--Scripts-->
 <script src="js/vendor/jquery-3.5.1.slim.js"></script>
 <script src="js/scripts.js"></script>
+<script src="js/addons/modals.js"></script>
+<script src="js/addons/qrcode.min.js"></script>
+<script src="js/controller/edit-desks.js"></script>
 </body>
