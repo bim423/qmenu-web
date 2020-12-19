@@ -17,6 +17,7 @@
 }
 .qrcode-container .qrcode img {
   width: 150px;
+  height: 150px;
 }
 
 /*# sourceMappingURL=qrcode.css.map */

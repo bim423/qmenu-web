@@ -52,14 +52,14 @@ HTML;
             <div class="row">
                 <div class="col-sm-12 col-md-8">
                     <div class="card">
-                        <table class="table desk-table">
+                        <table  class="table desk-table">
                             <thead>
                                 <tr>
                                     <th scope="col">Desks</th>
-                                    <th class="text-right" scope="col"><button class="btn btn-success">New Desk</button></th>
+                                    <th class="text-right" scope="col"><button id="btn-new-desk" class="btn btn-success">New Desk</button></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="desk-editor-table-body">
                             <?php echo get_desk_editor_table_rows_content($desks);?>
                             </tbody>
                         </table>
@@ -84,7 +84,7 @@ HTML;
 </div>
 
 <!--Scripts-->
-<script src="js/vendor/jquery-3.5.1.slim.js"></script>
+<script src="js/vendor/jquery.min.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/addons/modals.js"></script>
 <script src="js/addons/qrcode.min.js"></script>
