@@ -62,7 +62,7 @@ function addCategory(categoryName, categoryDescription) {
     $("#category-list-container").append(`
         <div id="category-${categoryId}" class="card category-card">
             <div id="category-header-container-${categoryId}">
-                <div class="card-header category-card-header">
+                <div class="card-header category-card-header" id="card-header-${categoryId}">
                     <div class="col-category-info" id="category-info-${categoryId}">
                         <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
                         <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
@@ -93,16 +93,16 @@ function addCategory(categoryName, categoryDescription) {
     })
     $("#btn-edit-category-"+categoryId).click(function (){
         console.log(categoryId);
-        editCategoryForm(categoryId,categoryName,categoryDescription);
+        editCategoryForm(categoryId);
     })
 
     showNewCategoryBtn();
 
     categoryIndex++;
 }
-function editCategoryForm(categoryId,categoryName,categoryDescription){
-    let categoryContainer = $("#category-"+categoryId);
-    $("#category-header-container-"+categoryId).hide();
+function editCategoryForm(categoryId){
+    let categoryContainer = $("#category-header-container-"+categoryId);
+    $("#category-info-"+categoryId).hide();
     $("#btn-edit-category-"+categoryId).hide();
     $("#btn-add-category-product-"+categoryId).hide();
     categoryContainer.append(`
@@ -112,7 +112,7 @@ function editCategoryForm(categoryId,categoryName,categoryDescription){
                         <label>Category name:</label>
                     </div>
                     <div class="col">
-                        <input id="input_category_name" type="text" class="form-control" placeholder="${categoryName}">
+                        <input id="input_category_name" type="text" class="form-control" placeholder="Category Name">
                     </div>
                 </div>
                 <div class="form-row">
@@ -120,7 +120,7 @@ function editCategoryForm(categoryId,categoryName,categoryDescription){
                         <label>Description:</label>
                     </div>
                     <div class="col">
-                        <input id="input_category_description" type="text" class="form-control" placeholder="${categoryDescription}">
+                        <input id="input_category_description" type="text" class="form-control" placeholder="Description">
                     </div>
                 </div>
                 <div class="form-row btn-row">
@@ -133,12 +133,12 @@ function editCategoryForm(categoryId,categoryName,categoryDescription){
     $("#btn_edit_category").click(function (){
         let categoryName = $("#input_category_name").val();
         let categoryDescription = $("#input_category_description").val();
-        $("#category-header-container-"+categoryId).show();
+        $("#category-info-"+categoryId).show();
         showEditCategory(categoryId,categoryName,categoryDescription)
         $("#category-form").remove();
     });
     $("#btn_cancel_category").click(function (){
-        $("#category-header-container-"+categoryId).show();
+        $("#category-info-"+categoryId).show();
         $("#category-form").remove();
         $("#btn-edit-category-"+categoryId).show();
         $("#btn-add-category-product-"+categoryId).show();
@@ -176,7 +176,7 @@ function setNewProductFormVisible(categoryId, visible) {
                     <label>Price:</label>
                 </div>
                 <div class="col-2">
-                    <input id="input-product-price-${categoryId}" type="text" class="form-control" placeholder="Price">
+                    <input id="input-product-price-${categoryId}" type="number" class="form-control" placeholder="Price">
                 </div>
             </div>
             <div class="form-row">
@@ -216,19 +216,97 @@ function setNewProductFormVisible(categoryId, visible) {
 
 function addNewProduct(categoryId, productName, productDescription, price) {
     let productListContainer = $("#product-list-"+categoryId);
+    let productId = productIndex;
 
     productListContainer.append(`
-        <div class="product-container">
-            <div class="col-product-info">
+        <div class="product-container" id="product-container-${categoryId}${productId}">
+            <div class="col-product-info" id="col-product-info-${categoryId}${productId}">
                 <h3 class="product-name">${productName}</h3>
                 <p class="product-description">${productDescription}</p>
             </div>
-            <div class="col-product-price">
-                <button class="btn btn-link"><span class="fa fa-edit"></span></button>
+            <div class="col-product-price" id="col-product-price-${categoryId}${productId}">
+                <button class="btn btn-link" id="btn-product-edit-${categoryId}${productId}"><span class="fa fa-edit"></span></button>
                 <h3 class="product-price">$ ${price}</h3>
             </div>
         </div>
     `);
+    $("#btn-product-edit-"+categoryId+(productId)).click(function (){
+        console.log("Edit product to: " + categoryId + productId);
+        editProductForm(categoryId, productId);
+    });
 
-    setNewProductFormVisible(categoryId, false);
+    setNewProductFormVisible(categoryId,false);
+    productIndex++;
+}
+function editProductForm(categoryId,productId){
+        $("#col-product-info-"+categoryId+productId).hide();
+        $("#col-product-price-"+categoryId+productId).hide();
+        $("#product-container-"+categoryId+productId).append(`
+        <div id="edit-product-form-card-${categoryId}${productId}" class="card editor-form-card">
+            <div class="form-row">
+                <div class="col-3">
+                    <label>Product name:</label>
+                </div>
+                <div class="col-5">
+                    <input id="input-product-name-${categoryId}${productId}" type="text" class="form-control" placeholder="Product name">
+                </div>
+                <div class="col-2">
+                    <label>Price:</label>
+                </div>
+                <div class="col-2">
+                    <input id="input-product-price-${categoryId}${productId}" type="number" class="form-control" placeholder="Price">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-3">
+                    <label>Description:</label>
+                </div>
+                <div class="col-5">
+                    <input id="input-product-description-${categoryId}${productId}" type="text" class="form-control" placeholder="Description">
+                </div>
+            </div>
+            <div class="form-row btn-row">
+            <button class="btn text-danger" id="btn_delete_product_${categoryId}${productId}"><span class="fa fa-trash"></span></button>
+                <button id="btn-cancel-product-${categoryId}${productId}" type="button" class="btn btn-danger">Cancel</button>
+                <button id="btn-edit-product-${categoryId}${productId}" type="button" class="btn btn-success">Edit</button>
+            </div>
+        </div>`);
+        $("#btn-cancel-product-"+categoryId+productId).click(function (){
+            console.log("Cancel form to: " + categoryId + productId);
+            $("#col-product-info-"+categoryId+productId).show();
+            $("#col-product-price-"+categoryId+productId).show();
+            $("#edit-product-form-card-"+categoryId+productId).remove();
+
+        });
+        $("#btn-edit-product-"+categoryId+productId).click(function (){
+            let productName = $("#input-product-name-"+categoryId+productId).val();
+            let productDescription = $("#input-product-description-"+categoryId+productId).val();
+            let price = $("#input-product-price-"+categoryId+productId).val();
+            showEditProduct(productName,productDescription,price,categoryId,productId);
+        });
+        $("#btn_delete_product_"+categoryId+productId).click(function (){
+            $("#edit-product-form-card-"+categoryId+productId).remove();
+            $("#product-container-"+categoryId+productId).remove();
+        });
+}
+function showEditProduct(productName,productDescription,price,categoryId,productId){
+    $("#col-product-info-"+categoryId+productId).show();
+    $("#col-product-price-"+categoryId+productId).show();
+    $("#edit-product-form-card-"+categoryId+productId).remove();
+    $("#product-container-"+categoryId+productId).replaceWith(`
+        <div class="product-container" id="product-container-${categoryId}${productId}">
+            <div class="col-product-info" id="col-product-info-${categoryId}${productId}">
+                <h3 class="product-name">${productName}</h3>
+                <p class="product-description">${productDescription}</p>
+            </div>
+            <div class="col-product-price" id="col-product-price-${categoryId}${productId}">
+                <button class="btn btn-link" id="btn-product-edit-${categoryId}${productId}"><span class="fa fa-edit"></span></button>
+                <h3 class="product-price">$ ${price}</h3>
+            </div>
+        </div>
+    `);
+    $("#btn-product-edit-"+categoryId+productId).click(function (){
+        console.log("Edit product to: " + categoryId + productId);
+        editProductForm(categoryId, productId);
+    });
 }
