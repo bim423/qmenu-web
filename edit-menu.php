@@ -23,37 +23,8 @@
             <h1 class="my-4">Edit Menu</h1>
             <div class="editor-container" id="editor">
                 <div id="category-list-container">
-                    <div id="category-9" class="card category-card">
-                        <div class="card-header category-card-header">
-                            <div class="col-category-info">
-                                <h2 class="category-name">Coffee</h2>
-                                <p class="category-description">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit</p>
-                            </div>
-                            <div class="col-category-actions">
-                                <button class="btn-category-action"><span class="fa fa-edit"></span></button>
-                                <button class="btn-category-action"><span class="fa fa-plus"></span></button>
-                            </div>
-                        </div>
 
-                        <div class="card-body category-card-body">
-                            <div class="product-list-container">
-                                <div class="product-container">
-                                    <div class="col-product-info">
-                                        <h3 class="product-name">Filter coffee</h3>
-                                        <p class="product-description">Fresh filter coffee</p>
-                                    </div>
-                                    <div class="col-product-price">
-                                        <button class="btn btn-link"><span class="fa fa-edit"></span></button>
-                                        <h3 class="product-price">$ 2.50</h3>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="category-form-container"></div>
-                        </div>
-                    </div>
                 </div>
-
                 <div id="new-category-container">
                     <button id="btn-new-category" class="new-category-button">Create New Category</button>
                 </div>
