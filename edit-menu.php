@@ -1,3 +1,6 @@
+<?php
+    header("Access-Control-Allow-Origin: *");
+?>
 <html lang="en">
 
 <head>
@@ -34,7 +37,8 @@
 
 </div>
 <!--Scripts-->
-<script src="js/vendor/jquery-3.5.1.slim.js"></script>
+<script src="js/api.js"></script>
+<script src="js/vendor/jquery.min.js"></script>
 <script src="js/controller/edit-menu.js"></script>
 <script src="js/scripts.js"></script>
 </body>

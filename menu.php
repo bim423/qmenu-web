@@ -1,8 +1,12 @@
 <?php
 
 // TODO: Retrieve Menu from the API
-$menu_data = file_get_contents("assets/demo/menu.json");
+$menu_data = file_get_contents("http://localhost:8080/menu");
 $menu_obj = json_decode($menu_data);
+if (!$menu_obj) {
+    echo "<h1>API Connection Error</h1>";
+    exit();
+}
 
 /**
  * Generates the menu content
@@ -46,18 +50,18 @@ function get_products_content($products){
     foreach ($products as $product) {
         $product_price = number_format($product->price, 2);
         $products_content .= <<<HTML
-        <div class="product-container" data-product_id="$product->product_id" data-price="$product_price">
+        <div class="product-container" data-product_id="$product->id" data-price="$product_price">
             <div class="product-info-row">
-                <div class="product-name"><h3>$product->product_name</h3></div>
-                <div class="product-price"><span class="product-quantity hidden" data-product_id="$product->product_id">Qty: 0</span>\$ $product_price</div>
+                <div class="product-name"><h3>$product->name</h3></div>
+                <div class="product-price"><span class="product-quantity hidden" data-product_id="$product->id">Qty: 0</span>\$ $product_price</div>
             </div>
             <div class="product-detail-row">
                 <div class="product-description">$product->description</div>
                 <div class="product-actions">
-                    <button class="action-btn-remove hidden" data-product_id="$product->product_id">
+                    <button class="action-btn-remove hidden" data-product_id="$product->id">
                         <span class="fa fa-minus"></span>
                     </button>
-                    <button class="action-btn-add" data-product_id="$product->product_id">
+                    <button class="action-btn-add" data-product_id="$product->id">
                         <span class="fa fa-plus"></span>
                     </button>
                 </div>
@@ -106,7 +110,7 @@ HTML;
 </div>
 
 <!-- Scripts -->
-<script src="js/vendor/jquery-3.5.1.slim.js" crossorigin="anonymous"></script>
+<script src="js/vendor/jquery.min.js"></script>
 <script src="js/controller/menu.js"></script>
 </body>
 </html>

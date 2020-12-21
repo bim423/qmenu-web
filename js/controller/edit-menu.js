@@ -1,9 +1,21 @@
-let categoryIndex = 0;
-let productIndex = 0;
-
 $(document).ready(function () {
-    // TODO: Make API request then populate the UI
+   // TODO: Add spinner
+    $.get(API.MENU, function( data ) {
+        console.log(data.menu)
+        if (data.menu) {
+            for (let i = 0; i < data.menu.length; i++) {
+                let subMenu = data.menu[i];
+                addCategory(subMenu.id, subMenu.category, subMenu.description);
 
+                let products = subMenu.products;
+                for (let j = 0; j < products.length; j++) {
+                    let product = products[j];
+                    addProduct(subMenu.id, product.id, product.name, product.description, product.price);
+                }
+            }
+        }
+    });
+    
     $("#btn-new-category").click(function () {
         setNewCategoryFormVisible(true);
     });
@@ -44,7 +56,7 @@ function setNewCategoryFormVisible(visible) {
             //TODO: Validate input
             let categoryName = $("#input_category_name").val();
             let categoryDescription = $("#input_category_description").val();
-            addCategory(categoryName, categoryDescription);
+            createNewCategory(categoryName, categoryDescription);
 
         });
 
@@ -112,7 +124,7 @@ function setNewProductFormVisible(categoryId, visible) {
             let productDescription = $(`#input-product-description-${categoryId}`).val();
             let price = $(`#input-product-price-${categoryId}`).val();
 
-            addNewProduct(categoryId, productName, productDescription, price)
+            createNewProduct(categoryId, productName, productDescription, price)
         });
 
     } else {
@@ -169,7 +181,7 @@ function showEditCategoryForm(categoryId) {
         let categoryDescription = $(`#category-${categoryId} #input-category-description`).val();
         $(`#category-${categoryId} .col-category-info`).show();
         $(`#category-${categoryId} .col-category-actions`).show();
-        updateCategory(categoryId, categoryName, categoryDescription)
+        updateCategory(categoryId, categoryName, categoryDescription);
         $(`#category-${categoryId} .category-form`).remove();
     });
 
@@ -180,7 +192,7 @@ function showEditCategoryForm(categoryId) {
     });
 
     $(`#category-${categoryId} .category-card-header #btn-delete-category`).click(function () {
-        $("#category-" + categoryId).remove();
+        deleteCategory(categoryId)
     });
 }
 
@@ -239,52 +251,163 @@ function showEditProductForm(categoryId, productId) {
         let inputProductName = $(`#product-container-${productId} #input-product-name`).val();
         let inputProductDesc = $(`#product-container-${productId} #input-product-description`).val();
         let inputProductPrice = $(`#product-container-${productId} #input-product-price`).val();
-        updateProduct(inputProductName, inputProductDesc, inputProductPrice, categoryId, productId);
+        updateProduct(productId, inputProductName, inputProductDesc, inputProductPrice);
     });
 
     $(`#product-container-${productId} #btn-delete-product`).click(function () {
         // Delete product
-        $(`#product-container-${productId}`).remove();
+        deleteProduct(productId);
+    });
+}
+/** API CRUD **/
+
+function createNewCategory(categoryName, categoryDescription) {
+    // TODO: Make API request
+    let requestBody = {
+        "category": categoryName,
+        "description": categoryDescription
+    }
+
+    $.ajax({
+        url: API.SUBMENU + "/create",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            // Append category to the category list
+            let categoryId = data.id;
+            addCategory(categoryId, categoryName, categoryDescription);
+        },
+        error : function (data) {
+            alert(data.message);
+        }
+    });
+}
+
+function createNewProduct(categoryId, productName, productDescription, price) {
+    let requestBody = {
+        "name": productName,
+        "description": productDescription,
+        "price": price,
+        "subId": categoryId
+    }
+
+    $.ajax({
+        url: API.PRODUCT + "/create",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function (data) {
+            addProduct(categoryId, data.id, productName, productDescription, price);
+        }
+    });
+
+}
+
+function deleteCategory(categoryId) {
+    // TODO: Add spinner
+    $.ajax({
+        url: API.SUBMENU + `/${categoryId}`,
+        type: 'DELETE',
+        contentType: 'application/json',
+        success: function(data) {
+            // Delete category from UI
+            $("#category-" + categoryId).remove();
+        }
+    });
+}
+
+function deleteProduct(productId) {
+    // TODO: Add spinner
+    $.ajax({
+        url: API.PRODUCT,
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify({id : productId}),
+        success: function(data) {
+            // Delete category from UI
+            $(`#product-container-${productId}`).remove();
+        }
+    });
+}
+
+function updateCategory(categoryId, categoryName, categoryDescription) {
+    let requestBody = {
+        "id" : categoryId,
+        "category": categoryName,
+        "description": categoryDescription
+    }
+
+    $.ajax({
+        url: API.SUBMENU + "/update",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            // Append category to the category list
+            let categoryId = data.id;
+            updateCategoryContainer(categoryId, categoryName, categoryDescription);
+        }
+    });
+}
+
+function updateProduct(productId, productName, productDescription, price) {
+    let requestBody = {
+        "id" : productId,
+        "name": productName,
+        "description": productDescription,
+        "price" : price
+    }
+
+    $.ajax({
+        url: API.PRODUCT + "/update",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            // Append category to the category list
+            let categoryId = data.id;
+            updateProductContainer(productId, productName, productDescription, price);
+        }
     });
 }
 
 /**
- * Creates a new category, makes required API request then adds a new category to the UI.
+ * Adds category to the UI.
+ * @param categoryId
  * @param categoryName
  * @param categoryDescription
  */
-function addCategory(categoryName, categoryDescription) {
-    // TODO: Make API request
-    // Append category to the category list
-    let categoryId = categoryIndex
+function addCategory(categoryId, categoryName, categoryDescription) {
     $("#category-list-container").append(`
-        <div id="category-${categoryId}" class="card category-card">
-            <div id="category-header-container-${categoryId}">
-                <div class="card-header category-card-header" id="card-header-${categoryId}">
-                    <div class="col-category-info" id="category-info-${categoryId}">
-                        <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
-                        <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
+                <div id="category-${categoryId}" class="card category-card">
+                    <div id="category-header-container-${categoryId}">
+                        <div class="card-header category-card-header" id="card-header-${categoryId}">
+                            <div class="col-category-info" id="category-info-${categoryId}">
+                                <h2 class="category-name" id="category-name-${categoryId}">${categoryName}</h2>
+                                <p class="category-description" id="category-description-${categoryId}">${categoryDescription}</p>
+                            </div>
+                            <div class="col-category-actions">
+                                <button id="btn-edit-category-${categoryId}" class="btn-category-action"><span class="fa fa-edit"></span></button>
+                                <button id="btn-add-category-product-${categoryId}" class="btn-category-action"><span class="fa fa-plus"></span></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-category-actions">
-                        <button id="btn-edit-category-${categoryId}" class="btn-category-action"><span class="fa fa-edit"></span></button>
-                        <button id="btn-add-category-product-${categoryId}" class="btn-category-action"><span class="fa fa-plus"></span></button>
+                    
+        
+                    <div id="category-card-body-${categoryId}" class="card-body category-card-body">
+                        <div id="product-list-${categoryId}" class="product-list-container">
+                                        
+                        </div>
+                        
+                        <div id="product-form-container-${categoryId}">
+                        
+                        </div>
                     </div>
-                </div>
-            </div>
-            
+                </div>   
+            `);
 
-            <div id="category-card-body-${categoryId}" class="card-body category-card-body">
-                <div id="product-list-${categoryId}" class="product-list-container">
-                                
-                </div>
-                
-                <div id="product-form-container-${categoryId}">
-                
-                </div>
-            </div>
-        </div>   
-    `);
-
+    // Set up events
     $("#btn-add-category-product-" + categoryId).click(function () {
         console.log(categoryId);
         setNewProductFormVisible(categoryId, true);
@@ -296,7 +419,6 @@ function addCategory(categoryName, categoryDescription) {
 
     setNewCategoryFormVisible(false)
 
-    categoryIndex++;
 }
 
 /**
@@ -305,7 +427,7 @@ function addCategory(categoryName, categoryDescription) {
  * @param categoryName
  * @param categoryDescription
  */
-function updateCategory(categoryId, categoryName, categoryDescription) {
+function updateCategoryContainer(categoryId, categoryName, categoryDescription) {
     let categoryNameLabel = $("#category-info-" + categoryId);
     categoryNameLabel.replaceWith(`
         <div class="col-category-info" id="category-info-${categoryId}">
@@ -315,10 +437,9 @@ function updateCategory(categoryId, categoryName, categoryDescription) {
     `);
 }
 
-function addNewProduct(categoryId, productName, productDescription, price) {
+function addProduct(categoryId, productId, productName, productDescription, price) {
     let productListContainer = $("#product-list-" + categoryId);
-    let productId = productIndex;
-
+    price = Number(price).toFixed(2);
     productListContainer.append(`
         <div class="product-container" id="product-container-${productId}" data-product-id="${productId}">
             <div class="col-product-info">
@@ -331,20 +452,20 @@ function addNewProduct(categoryId, productName, productDescription, price) {
             </div>
         </div>
     `);
+
     $("#btn-product-edit-" + (productId)).click(function () {
         console.log("Edit product to: " + categoryId + productId);
         showEditProductForm(categoryId, productId);
     });
 
     setNewProductFormVisible(categoryId, false);
-    productIndex++;
 }
 
-function updateProduct(productName, productDescription, price, categoryId, productId) {
+function updateProductContainer(productId, productName, productDescription, price) {
     // Update fields
     $(`#product-container-${productId} .col-product-info .product-name`).text(productName);
     $(`#product-container-${productId} .col-product-info .product-description`).text(productDescription);
-    $(`#product-container-${productId} .col-product-price .product-price`).text(`$ ${price}`);
+    $(`#product-container-${productId} .col-product-price .product-price`).text(`$ ${Number(price).toFixed(2)}`);
 
     // Replace content
     $(`#product-container-${productId} .col-product-info`).show();
