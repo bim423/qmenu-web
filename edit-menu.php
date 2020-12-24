@@ -24,14 +24,19 @@
     <div id="layoutSidenav_content">
         <div class="container-fluid" >
             <h1 class="my-4">Edit Menu</h1>
-            <div class="editor-container" id="editor">
-                <div id="category-list-container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="editor-container" id="editor">
+                        <div id="category-list-container">
 
-                </div>
-                <div id="new-category-container">
-                    <button id="btn-new-category" class="new-category-button">Create New Category</button>
+                        </div>
+                        <div id="new-category-container">
+                            <button id="btn-new-category" class="new-category-button">Create New Category</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -39,6 +44,7 @@
 <!--Scripts-->
 <script src="js/api.js"></script>
 <script src="js/vendor/jquery.min.js"></script>
+<script src="js/addons/modals.js"></script>
 <script src="js/controller/edit-menu.js"></script>
 <script src="js/scripts.js"></script>
 </body>
