@@ -1,0 +1,80 @@
+main {
+  height: 80vh;
+  display: flex;
+}
+
+.order-terminal-container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.35rem;
+  padding: 1rem;
+  overflow-y: auto;
+  height: 100%;
+}
+.order-terminal-container .order-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0.35rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  background: rgba(0, 0, 0, 0.04);
+}
+.order-terminal-container .order-container .order-desk-col {
+  width: 20%;
+}
+.order-terminal-container .order-container .order-desk-col .order-desk-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.order-terminal-container .order-container .order-desk-col .order-arrival-time {
+  font-size: 0.8rem;
+  color: darkgray;
+}
+.order-terminal-container .order-container .order-detail-col {
+  width: 40%;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+}
+.order-terminal-container .order-container .order-badge-col {
+  width: 25%;
+  text-align: right;
+  font-weight: bold;
+}
+.order-terminal-container .order-container .order-badge-col .badge-processing {
+  color: green;
+}
+.order-terminal-container .order-container .order-badge-col .badge {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  color: #ffffff;
+}
+.order-terminal-container .order-container .order-action-col {
+  width: 15%;
+  text-align: right;
+}
+.order-terminal-container .order-container .order-action-col .btn-link {
+  font-size: 1.5rem;
+}
+.order-terminal-container .order-container .order-action-col .order-btn-revert {
+  color: crimson;
+}
+.order-terminal-container .order-container .order-action-col .order-btn-deliver {
+  color: green;
+}
+.order-terminal-container .order-container .order-action-col .order-btn-deny {
+  color: crimson;
+}
+.order-terminal-container .order-container .order-action-col .order-btn-approve {
+  color: green;
+}
+.order-terminal-container .order-container-warning {
+  color: #d59602;
+  background: rgba(255, 225, 0, 0.12);
+}
+.order-terminal-container .order-container-danger {
+  background-color: rgba(255, 0, 0, 0.15);
+  color: darkred;
+}
+
+/*# sourceMappingURL=order-terminal.css.map */
