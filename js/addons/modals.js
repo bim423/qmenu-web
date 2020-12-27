@@ -65,8 +65,5 @@ function destroyModalDialog(modalId) {
 }
 
 function destroyModalDialogs() {
-    let modals = document.getElementsByClassName("modal");
-    for (let i=0; i<modals.length; i++) {
-        document.getElementsByTagName('body')[0].removeChild(modals[i]);
-    }
+    $(".modal").remove();
 }
