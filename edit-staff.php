@@ -29,7 +29,7 @@
                 </button>
             </div>
 
-            <table class="table table-hover table-bordered">
+            <table class="table table-hover table-bordered" id="personnel-table">
                 <thead>
                 <tr>
                     <th>Username</th>
@@ -40,14 +40,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr data-personnel-id="1">
                     <td>john_doe</td>
                     <td>John</td>
                     <td>Doe</td>
                     <td>john@example.com</td>
                     <td>Admin</td>
                 </tr>
-                <tr>
+                <tr data-personnel-id="2">
                     <td>mary_moe</td>
                     <td>Mary</td>
                     <td>Moe</td>

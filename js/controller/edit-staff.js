@@ -4,6 +4,11 @@ $(document).ready(function () {
     createStaffButton.click(function () {
        showCreateStaffDialog()
     })
+
+    // TODO: Add event for each table cell seacrh jquery child nodes
+    $("#personnel-table tr").click(function (e) {
+        console.log(e.currentTarget);
+    });
 })
 
 function showCreateStaffDialog() {
@@ -43,7 +48,9 @@ function showCreateStaffDialog() {
             </form>
             `,
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
-        {label: "Create", class: "btn-success", onClick: createStaff}
+        {label: "Create", class: "btn-success", onClick: function () {
+            alert("yaratıldım")
+            }}
     )
 }
 
@@ -54,7 +61,7 @@ function showEditStaffDialog() {
             <form>
               <div class="form-group">
                 <label for="text">Username</label> 
-                <input id="input-personnel-username" type="text" placeholder="Username" class="form-control">
+                <input id="input-personnel-username" type="text" placeholder="Username" class="form-control" >
               </div>
               <div class="form-group">
                 <label for="input-personnel-password">Password</label> 
@@ -88,10 +95,16 @@ function showEditStaffDialog() {
     )
 }
 
+/**
+ * TODO: The action for the save button of the create modal
+ */
 function actionCreateStaff() {
 
 }
 
+/**
+ * TODO: The action for the edit button of the edit modal
+ */
 function actionEditStaff() {
 
 }
