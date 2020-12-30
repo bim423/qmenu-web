@@ -57,7 +57,7 @@ function showCreateStaffDialog() {
                 let inputPersonnelLastname = $("#input-personnel-lastname").val();
                 let inputPersonnelEmail = $("#input-personnel-email").val();
                 let inputPersonnelAdmin;
-                if ($("input-personnel-admin_0").is(":checked")){
+                if ($("input:checked").is(":checked")){
                     inputPersonnelAdmin = "Admin"
                 }else {
                     inputPersonnelAdmin = "Personnel"
