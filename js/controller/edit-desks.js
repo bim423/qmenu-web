@@ -39,39 +39,101 @@ function initEvents() {
     });
 }
 
-function addNewDesk(deskId, deskLabel) {
-    $("#desk-editor-table-body").append(`
-        <tr data-desk-id="${deskId}" data-desk-label="${deskLabel}">
-            <th class="desk-table-label" scope="row">${deskLabel}</th>
-            <td class="desk-table-actions">
-                <button class="btn-table-action text-primary" data-action="edit"><span class="fa fa-pen"></span></button>
-                <button class="btn-table-action text-danger" data-action="delete"><span class="fa fa-trash"></span></button>
-                <button class="btn-table-action text-success" data-action="code"><span class="fa fa-qrcode"></span></button>
-            </td>
-        </tr>
-    `);
-    initEvents();
+/**
+ * Make API request and create a new desk
+ * @param deskLabel
+ */
+function createNewDesk(deskLabel) {
+    //  TODO: API request
+    let requestBody = {
+        "label": deskLabel
+    }
+
+    $.ajax({
+        url: API.DESK,
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            // Append category to the category list
+            let deskId = data.id;
+            let deskCode = data.deskCode;
+
+            $("#desk-editor-table-body").append(`
+                <tr data-desk-id="${deskId}" data-desk-label="${deskLabel}" data-desk-code="${deskCode}">
+                    <th class="desk-table-label" scope="row">${deskLabel}</th>
+                    <td class="desk-table-actions">
+                        <button class="btn-table-action text-primary" data-action="edit"><span class="fa fa-pen"></span></button>
+                        <button class="btn-table-action text-danger" data-action="delete"><span class="fa fa-trash"></span></button>
+                        <button class="btn-table-action text-success" data-action="code"><span class="fa fa-qrcode"></span></button>
+                    </td>
+                </tr>
+            `);
+
+            initEvents();
+        },
+        error : function (data) {
+            alert(data.message);
+        }
+    });
+
+
 }
 
+/**
+ * Update a desk
+ * @param deskId
+ * @param deskLabel
+ */
 function updateDesk(deskId, deskLabel) {
-    $(`tr[data-desk-id="${deskId}"] .desk-table-label`).text(deskLabel);
-    $(`tr[data-desk-id="${deskId}"]`).data("desk-label", deskLabel);
+    let requestBody = {
+        "id": deskId,
+        "label" : deskLabel
+    }
+
+    $.ajax({
+        url: API.DESK + "/update",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            $(`tr[data-desk-id="${deskId}"] .desk-table-label`).text(deskLabel);
+            $(`tr[data-desk-id="${deskId}"]`).data("desk-label", deskLabel);
+            initEvents();
+            destroyModalDialogs()
+        },
+        error : function (data) {
+            alert(data.message);
+        }
+    });
 
 }
 
+/**
+ * Make API request and delete the desk
+ * @param deskId
+ */
 function deleteDesk(deskId) {
-    $(`tr[data-desk-id="${deskId}"]`).remove();
+    $.ajax({
+        url: API.DESK + `/delete/${deskId}`,
+        type: 'DELETE',
+        contentType: 'application/json',
+        success: function(data) {
+            // Delete category from UI
+            $(`tr[data-desk-id="${deskId}"]`).remove();
+        }
+    });
 }
 
 function actionNewDesk() {
     showModalDialog("Create new desk", `
-        
         <div class="form-row">
             <div class="col-3">
                 <label class="font-weight-bold">Desk label:</label>
             </div>
             <div class="col-9">
                 <input id="input-desk-label" type="text" class="form-control" placeholder="Enter desk label">
+                <div class="invalid-feedback">Desk label can't be empty</div>
             </div>
         </div>
             
@@ -84,11 +146,15 @@ function actionNewDesk() {
             label: "Create",
             class: "btn-success",
             onClick: function () {
-                // TODO: API request
-                let inputDeskLabel = $("#input-desk-label").val();
-                addNewDesk(deskIndex, inputDeskLabel);
-                deskIndex++;
-                destroyModalDialogs();
+                let inputDeskLabel = $("#input-desk-label");
+
+                if (!inputDeskLabel.val()) {
+                    // Check if input is empty
+                    inputDeskLabel.addClass("is-invalid");
+                } else {
+                    createNewDesk(inputDeskLabel.val());
+                    destroyModalDialogs();
+                }
             }
         }
     );
@@ -114,10 +180,8 @@ function actionEditDesk(deskId) {
             label: "Save",
             class: "btn-success",
             onClick: function () {
-                // TODO: Make API request
                 let inputDeskLabel = $("#input-desk-label").val();
                 updateDesk(deskId, inputDeskLabel);
-                destroyModalDialogs();
             }
         }
     );
@@ -136,7 +200,6 @@ function actionDeleteDesk(deskId) {
             label: "Delete",
             class: "btn-danger",
             onClick: function () {
-                // TODO: Make API request
                 deleteDesk(deskId);
                 destroyModalDialogs();
             }
@@ -145,7 +208,11 @@ function actionDeleteDesk(deskId) {
 }
 
 function actionGetCode(deskId) {
-    let deskName = $(`tr[data-desk-id=${deskId}]`).data().deskLabel;
+    let deskRowData = $(`tr[data-desk-id=${deskId}]`).data();
+    let deskName = deskRowData.deskLabel;
+    let deskCode = deskRowData.deskCode;
+    let deskMenuUrl = WEB_ROOT + "menu.php?code=" + deskCode;
+
     showModalDialog("QR Code", `
        <div id="qrcode-container-${deskId}" class="qrcode-container">
             <div class="qrcode-label">${deskName}</div>
@@ -164,7 +231,7 @@ function actionGetCode(deskId) {
             onClick: destroyModalDialogs
         }
     );
-    new QRCode(document.getElementById(`qcode-${deskId}`), deskId);
+    new QRCode(document.getElementById(`qcode-${deskId}`), deskMenuUrl);
 }
 
 function showPrintWindow(qrCodeId) {

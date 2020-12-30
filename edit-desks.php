@@ -1,17 +1,17 @@
 <?php
-// TODO: Get desks from API
-$response = file_get_contents("assets/demo/desk.json");
-$response_obj = json_decode($response);
-$desks = $response_obj->desks;
+include "inc/model/api_config.php";
 
+$response = file_get_contents(API_DESKS);
+$response_obj = json_decode($response);;
+$desks = $response_obj;
 
 
 function get_desk_editor_table_rows_content($desks){
     $table_rows = "";
     foreach ($desks as $desk) {
         $table_rows .= <<<HTML
-        <tr data-desk-id="$desk->desk_id" data-desk-label="$desk->desk_label">
-            <th class="desk-table-label" scope="row">$desk->desk_label</th>
+        <tr data-desk-id="$desk->id" data-desk-label="$desk->label" data-desk-code="$desk->code">
+            <th class="desk-table-label" scope="row">$desk->label</th>
             <td class="desk-table-actions">
                 <button class="btn-table-action text-primary" data-action="edit"><span class="fa fa-pen"></span></button>
                 <button class="btn-table-action text-danger" data-action="delete"><span class="fa fa-trash"></span></button>
@@ -84,6 +84,7 @@ HTML;
 </div>
 
 <!--Scripts-->
+<script src="js/api.js"></script>
 <script src="js/vendor/jquery.min.js"></script>
 <script src="js/scripts.js"></script>
 <script src="js/addons/modals.js"></script>

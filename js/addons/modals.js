@@ -61,7 +61,7 @@ function showModalDialog(title, body, ... actions) {
 }
 
 function destroyModalDialog(modalId) {
-    document.getElementsByTagName('body')[0].removeChild(document.getElementById(`modal-${modalId}`));
+    $("#modal-"+modalId).remove();
 }
 
 function destroyModalDialogs() {
