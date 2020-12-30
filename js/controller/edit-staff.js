@@ -1,3 +1,5 @@
+let staffIndex = 3;
+
 $(document).ready(function () {
     let createStaffButton = $("#btn-add-staff");
 
@@ -25,7 +27,7 @@ function showCreateStaffDialog() {
                 <input id="input-personnel-password" placeholder="Password" name="input-personnel-password" type="password" class="form-control">
               </div>
               <div class="form-group">
-                <label for="nput-personnel-firstname">First Name</label> 
+                <label for="input-personnel-firstname">First Name</label> 
                 <input id="input-personnel-firstname" type="text" placeholder="First Name" class="form-control">
               </div>
               <div class="form-group">
@@ -49,7 +51,20 @@ function showCreateStaffDialog() {
             `,
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
         {label: "Create", class: "btn-success", onClick: function () {
-            alert("yaratıldım")
+                let inputPersonnelUsername = $("#input-personnel-username").val();
+                let inputPersonnelPassword = $("#input-personnel-password").val();
+                let inputPersonnelFirstname = $("#input-personnel-firstname").val();
+                let inputPersonnelLastname = $("#input-personnel-lastname").val();
+                let inputPersonnelEmail = $("#input-personnel-email").val();
+                let inputPersonnelAdmin;
+                if ($("input-personnel-admin_0").is(":checked")){
+                    inputPersonnelAdmin = "Admin"
+                }else {
+                    inputPersonnelAdmin = "Personnel"
+                }
+                actionCreateStaff(staffIndex,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
+                staffIndex++;
+                destroyModalDialogs();
             }}
     )
 }
@@ -68,7 +83,7 @@ function showEditStaffDialog() {
                 <input id="input-personnel-password" placeholder="Password" name="input-personnel-password" type="password" class="form-control">
               </div>
               <div class="form-group">
-                <label for="nput-personnel-firstname">First Name</label> 
+                <label for="input-personnel-firstname">First Name</label> 
                 <input id="input-personnel-firstname" type="text" placeholder="First Name" class="form-control">
               </div>
               <div class="form-group">
@@ -98,14 +113,22 @@ function showEditStaffDialog() {
 /**
  * TODO: The action for the save button of the create modal
  */
-function actionCreateStaff() {
-
+function actionCreateStaff(staffId,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
+    $("#personnel-table-body").append(`
+        <tr data-personnel-id="${staffId}">
+                    <td>${inputPersonnelUsername}</td>
+                    <td>${inputPersonnelFirstname}</td>
+                    <td>${inputPersonnelLastname}</td>
+                    <td>${inputPersonnelEmail}</td>
+                    <td>${inputPersonnelAdmin}</td>
+        </tr>
+    `);
 }
 
 /**
  * TODO: The action for the edit button of the edit modal
  */
-function actionEditStaff() {
+function actionEditStaff(staffId) {
 
 }
 
