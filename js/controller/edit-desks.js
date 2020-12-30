@@ -1,16 +1,9 @@
-// TODO: Retrieve desk IDS from desk API
-let deskIndex = 100;
-
 $(document).ready(function () {
     // Add new desk event
     $("#btn-new-desk").click(function (e) {
         actionNewDesk();
     });
 
-    initEvents();
-})
-
-function initEvents() {
     // Edit event
     $(`.btn-table-action[data-action="edit"]`).click(function (e) {
         let target = e.currentTarget;
@@ -37,14 +30,14 @@ function initEvents() {
             actionGetCode(deskId)
         }
     });
-}
+})
+
 
 /**
  * Make API request and create a new desk
  * @param deskLabel
  */
 function createNewDesk(deskLabel) {
-    //  TODO: API request
     let requestBody = {
         "label": deskLabel
     }
@@ -70,7 +63,17 @@ function createNewDesk(deskLabel) {
                 </tr>
             `);
 
-            initEvents();
+            // Connect events to the new row
+            $(`tr[data-desk-id=${deskId}] .btn-table-action`).click(function (e) {
+                let action = e.currentTarget.dataset.action
+                if (action === "edit"){
+                    actionEditDesk(deskId)
+                } else if (action === "delete") {
+                    actionDeleteDesk(deskId)
+                } else if (action === "code") {
+                    actionGetCode(deskId)
+                }
+            })
         },
         error : function (data) {
             alert(data.message);
@@ -81,7 +84,7 @@ function createNewDesk(deskLabel) {
 }
 
 /**
- * Update a desk
+ * Make API request and update a desk
  * @param deskId
  * @param deskLabel
  */
@@ -99,7 +102,6 @@ function updateDesk(deskId, deskLabel) {
         success: function(data) {
             $(`tr[data-desk-id="${deskId}"] .desk-table-label`).text(deskLabel);
             $(`tr[data-desk-id="${deskId}"]`).data("desk-label", deskLabel);
-            initEvents();
             destroyModalDialogs()
         },
         error : function (data) {
@@ -121,10 +123,14 @@ function deleteDesk(deskId) {
         success: function(data) {
             // Delete category from UI
             $(`tr[data-desk-id="${deskId}"]`).remove();
+            destroyModalDialogs();
         }
     });
 }
 
+/**
+ * New desk action, show new desk dialog
+ */
 function actionNewDesk() {
     showModalDialog("Create new desk", `
         <div class="form-row">
@@ -160,6 +166,10 @@ function actionNewDesk() {
     );
 }
 
+/**
+ * Edit desk action. show edit dialog
+ * @param deskId
+ */
 function actionEditDesk(deskId) {
     let deskName = $(`tr[data-desk-id=${deskId}]`).data().deskLabel;
     showModalDialog("Edit desk", `
@@ -187,6 +197,10 @@ function actionEditDesk(deskId) {
     );
 }
 
+/**
+ * Delete desk action, show delete dialog
+ * @param deskId
+ */
 function actionDeleteDesk(deskId) {
     let deskName = $(`tr[data-desk-id=${deskId}]`).data().deskLabel;
     showModalDialog("Delete desk", `
@@ -201,17 +215,20 @@ function actionDeleteDesk(deskId) {
             class: "btn-danger",
             onClick: function () {
                 deleteDesk(deskId);
-                destroyModalDialogs();
             }
         }
     );
 }
 
+/**
+ * Get code action, show qr code dialog
+ * @param deskId
+ */
 function actionGetCode(deskId) {
     let deskRowData = $(`tr[data-desk-id=${deskId}]`).data();
     let deskName = deskRowData.deskLabel;
     let deskCode = deskRowData.deskCode;
-    let deskMenuUrl = WEB_ROOT + "menu.php?code=" + deskCode;
+
 
     showModalDialog("QR Code", `
        <div id="qrcode-container-${deskId}" class="qrcode-container">
@@ -220,17 +237,31 @@ function actionGetCode(deskId) {
        </div>
            
     `, {
+            label: "Refresh code",
+            class: "btn-danger",
+            onClick: function () {
+                // Refresh desk code
+                $.ajax({
+                    url: API.DESK + "/update/" + deskId,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        let deskCode = data.deskCode
+                        let deskMenuUrl = WEB_ROOT + "menu.php?code=" + deskCode;
+                        $(`#qcode-${deskId}`).html("");
+                        new QRCode(document.getElementById(`qcode-${deskId}`), deskMenuUrl);
+                    }
+                })
+            }
+        },{
             label: "Print",
             class: "btn-secondary",
             onClick: function () {
                 showPrintWindow(`qrcode-container-${deskId}`);
             }
-        }, {
-            label: "Close",
-            class: "btn-danger",
-            onClick: destroyModalDialogs
         }
     );
+    let deskMenuUrl = WEB_ROOT + "menu.php?code=" + deskCode;
     new QRCode(document.getElementById(`qcode-${deskId}`), deskMenuUrl);
 }
 
