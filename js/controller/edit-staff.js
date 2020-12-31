@@ -8,9 +8,13 @@ $(document).ready(function () {
     })
 
     // TODO: Add event for each table cell seacrh jquery child nodes
-    $("#personnel-table tr").click(function (e) {
-        console.log(e.currentTarget);
-    });
+    $("#personnel-table tr").click(function (e){
+        let target = e.currentTarget;
+        let staffId = target.parentElement.parentElement.dataset.staffId;
+        if (staffId) {
+            showEditStaffDialog(staffId);
+        }
+    }) ;
 })
 
 function showCreateStaffDialog() {
@@ -69,7 +73,7 @@ function showCreateStaffDialog() {
     )
 }
 
-function showEditStaffDialog() {
+function showEditStaffDialog(staffId) {
     // Show create staff modal
     showModalDialog("Edit personnel",
         `
@@ -105,8 +109,26 @@ function showEditStaffDialog() {
               </div> 
             </form>
             `,
+        {label:"delete",class:"btn-danger",onClick: function(){
+            actionDeleteStaff(staffId);
+            destroyModalDialogs();
+            }},
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
-        {label: "Save", class: "btn-success", onClick: createStaff}
+        {label: "Save", class: "btn-success", onClick : function () {
+                let inputPersonnelUsername = $("#input-personnel-username").val();
+                let inputPersonnelPassword = $("#input-personnel-password").val();
+                let inputPersonnelFirstname = $("#input-personnel-firstname").val();
+                let inputPersonnelLastname = $("#input-personnel-lastname").val();
+                let inputPersonnelEmail = $("#input-personnel-email").val();
+                let inputPersonnelAdmin;
+                if ($("input:checked").is(":checked")){
+                    inputPersonnelAdmin = "Admin"
+                }else {
+                    inputPersonnelAdmin = "Personnel"
+                }
+                actionEditStaff(staffId,inputPersonnelUsername,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
+                destroyModalDialogs();
+            }}
     )
 }
 
@@ -116,19 +138,31 @@ function showEditStaffDialog() {
 function actionCreateStaff(staffId,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
     $("#personnel-table-body").append(`
         <tr data-personnel-id="${staffId}">
-                    <td>${inputPersonnelUsername}</td>
-                    <td>${inputPersonnelFirstname}</td>
-                    <td>${inputPersonnelLastname}</td>
-                    <td>${inputPersonnelEmail}</td>
-                    <td>${inputPersonnelAdmin}</td>
+                    <td class="personnel-table-username-label">${inputPersonnelUsername}</td>
+                    <td class="personnel-table-firstname-label">${inputPersonnelFirstname}</td>
+                    <td class="personnel-table-lastname-label">${inputPersonnelLastname}</td>
+                    <td class="personnel-table-email-label">${inputPersonnelEmail}</td>
+                    <td class="personnel-table-admin-label">${inputPersonnelAdmin}</td>
+                    
         </tr>
     `);
+}
+/**
+ * TODO: The action for the delete button of the edit modal
+ */
+function actionDeleteStaff(staffId){
+
 }
 
 /**
  * TODO: The action for the edit button of the edit modal
  */
-function actionEditStaff(staffId) {
+function actionEditStaff(staffId,inputPersonnelUsername,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
+    $(`tr[data-personnel-id="${staffId}"] .personnel-table-username-label`).text(inputPersonnelUsername);
+    $(`tr[data-personnel-id="${staffId}"] .personnel-table-firstname-label`).text(inputPersonnelFirstname);
+    $(`tr[data-personnel-id="${staffId}"] .personnel-table-lastname-label`).text(inputPersonnelLastname);
+    $(`tr[data-personnel-id="${staffId}"] .personnel-table-email-label`).text(inputPersonnelEmail);
+    $(`tr[data-personnel-id="${staffId}"] .personnel-table-admin-label`).text(inputPersonnelAdmin);
 
 }
 
