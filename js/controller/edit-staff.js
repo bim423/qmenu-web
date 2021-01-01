@@ -10,8 +10,10 @@ $(document).ready(function () {
     // TODO: Add event for each table cell seacrh jquery child nodes
     $("#personnel-table tr").click(function (e){
         let target = e.currentTarget;
-        let staffId = target.parentElement.parentElement.dataset.staffId;
+        console.log(target)
+        let staffId = target.dataset.personnelId;
         if (staffId) {
+            console.log(staffId)
             showEditStaffDialog(staffId);
         }
     }) ;
