@@ -17,6 +17,38 @@ body {
   max-height: 150px;
 }
 
+.order-checkout-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #ffffff;
+  color: #2b2b2b;
+  display: none;
+}
+.order-checkout-container label {
+  color: #a60f2c;
+  display: inline;
+  font-weight: bold;
+}
+.order-checkout-container h2 {
+  color: #a60f2c;
+  font-size: 1.25rem;
+  margin: 0 0 1rem;
+}
+.order-checkout-container .row-balance {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+}
+.order-checkout-container .row-balance .col-balance {
+  width: 50%;
+}
+.order-checkout-container .row-balance .col-balance-action {
+  width: 50%;
+  justify-content: right;
+  text-align: right;
+}
+
 .submenu-container {
   margin-bottom: 8px;
   padding: 8px;
@@ -180,6 +212,28 @@ body {
 
 .hidden {
   display: none;
+}
+
+.menu-btn {
+  border: #5b5b5b solid 2px;
+  border-radius: 0.35rem;
+  background: #434343;
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  transition: 0.1s;
+}
+.menu-btn:hover {
+  cursor: pointer;
+  opacity: 0.65;
+}
+.menu-btn:active {
+  opacity: 0.5;
+}
+
+.menu-btn-confirm {
+  border: green solid 2px;
+  background: #36a836;
 }
 
 /*# sourceMappingURL=menu.css.map */

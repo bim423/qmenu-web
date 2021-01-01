@@ -1,10 +1,27 @@
 <?php
-
-// TODO: Retrieve Menu from the API
-$menu_data = file_get_contents("http://localhost:8080/menu");
+include "inc/model/api_config.php";
+$menu_data = file_get_contents(API_MENU);
 $menu_obj = json_decode($menu_data);
+
 if (!$menu_obj) {
     echo "<h1>API Connection Error</h1>";
+    exit();
+}
+
+$desk_code = isset($_GET["code"]) ? $_GET["code"] : null;
+if (!$desk_code) {
+    echo "<h1>Bad Request</h1><p>No desk is specified</p>";
+    exit();
+}
+
+// Get desk information from the API
+$desk_data = file_get_contents(API_DESKS . "/" . $desk_code);
+$desk_obj = json_decode($desk_data);
+$desk_label = $desk_obj->label;
+$desk_id = $desk_obj->id;
+
+if (!isset($desk_label) || !isset($desk_id)) {
+    echo "<h1>Not Found</h1><p>The desk is not valid</p>";
     exit();
 }
 
@@ -50,7 +67,7 @@ function get_products_content($products){
     foreach ($products as $product) {
         $product_price = number_format($product->price, 2);
         $products_content .= <<<HTML
-        <div class="product-container" data-product_id="$product->id" data-price="$product_price">
+        <div class="product-container" data-product_id="$product->id" data-name="$product->name" data-price="$product_price">
             <div class="product-info-row">
                 <div class="product-name"><h3>$product->name</h3></div>
                 <div class="product-price"><span class="product-quantity hidden" data-product_id="$product->id">Qty: 0</span>\$ $product_price</div>
@@ -93,23 +110,42 @@ HTML;
     <div class="menu-header">
         <img class="menu-header-logo" src="assets/img/logo.jpg" />
     </div>
-    <!--<span class="product-quantity">Qty: 2</span>-->
-    <?php echo get_menu_content($menu_obj);?>
+    <div class="order-checkout-container">
+        <h2>Checkout your order</h2>
+
+        <label>Your desk:</label> A1<br>
+        1x Margarita pizza<br>
+        2x Tea
+
+        <div class="row-balance">
+            <div class="col-balance">
+                <label>Balance:</label> $ 49.00
+            </div>
+            <div class="col-balance-action">
+                <button class="menu-btn">Back to the menu</button>
+                <button class="menu-btn menu-btn-confirm">Place Order</button>
+            </div>
+        </div>
+    </div>
+    <div id="menu-content">
+        <?php echo get_menu_content($menu_obj);?>
+    </div>
 </div>
 
 <div class="bottom-bar">
-    <div id="order-summary" class="order-summary-container" style="visibility: hidden">
+    <div id="order-summary" class="order-summary-container" style="visibility: hidden" data-desk-code="<?php echo $desk_code ?>">
         <div class="order-detail-column">
-            <div class="order-desk">Your Desk: A1</div>
+            <div class="order-desk">Your Desk: <?php echo $desk_label ?></div>
             <div id="order-cost" class="order-cost">$ 0.00</div>
         </div>
         <div class="order-confirm-column">
-            <button class="confirm-order-btn">Order</button>
+            <button id="btn-order-checkout" class="menu-btn menu-btn-confirm">Order</button>
         </div>
     </div>
 </div>
 
 <!-- Scripts -->
+<script src="js/api.js"></script>
 <script src="js/vendor/jquery.min.js"></script>
 <script src="js/controller/menu.js"></script>
 </body>
