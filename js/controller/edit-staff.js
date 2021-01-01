@@ -8,7 +8,7 @@ $(document).ready(function () {
     })
 
     // TODO: Add event for each table cell seacrh jquery child nodes
-    $("#personnel-table tr").click(function (e){
+    $("#personnel-table ").on('click','tr',function (e){
         let target = e.currentTarget;
         console.log(target)
         let staffId = target.dataset.personnelId;
@@ -26,23 +26,28 @@ function showCreateStaffDialog() {
             <form>
               <div class="form-group">
                 <label for="text">Username</label> 
-                <input id="input-personnel-username" type="text" placeholder="Username" class="form-control">
+                <input id="input-personnel-username" type="text" placeholder="Username" class="form-control" >
+                <div class="invalid-feedback">Username label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-password">Password</label> 
                 <input id="input-personnel-password" placeholder="Password" name="input-personnel-password" type="password" class="form-control">
+                <div class="invalid-feedback">Password label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-firstname">First Name</label> 
                 <input id="input-personnel-firstname" type="text" placeholder="First Name" class="form-control">
+                <div class="invalid-feedback">First Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-lastname">Last Name</label> 
                 <input id="input-personnel-lastname" type="text"  placeholder="Last Name" class="form-control">
+                <div class="invalid-feedback">Last Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-email">E-Mail</label> 
               <input id="input-personnel-email" placeholder="E-Mail" type="text" class="form-control">
+              <div class="invalid-feedback">E-Mail label can't be empty</div>
               </div>
               <div class="form-group">
                 <div>
@@ -68,9 +73,17 @@ function showCreateStaffDialog() {
                 }else {
                     inputPersonnelAdmin = "Personnel"
                 }
-                actionCreateStaff(staffIndex,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
-                staffIndex++;
-                destroyModalDialogs();
+                validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail);
+
+                if (inputPersonnelUsername  && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail){
+
+                    actionCreateStaff(staffIndex,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
+                    staffIndex++;
+                    destroyModalDialogs();
+                }
+
+
+
             }}
     )
 }
@@ -82,23 +95,28 @@ function showEditStaffDialog(staffId) {
             <form>
               <div class="form-group">
                 <label for="text">Username</label> 
-                <input id="input-personnel-username" type="text" placeholder="Username" class="form-control" >
+                <input  id="input-personnel-username" type="text" placeholder="Username" class="form-control" required>
+                <div class="invalid-feedback">Username label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-password">Password</label> 
                 <input id="input-personnel-password" placeholder="Password" name="input-personnel-password" type="password" class="form-control">
+                <div class="invalid-feedback">Password label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-firstname">First Name</label> 
                 <input id="input-personnel-firstname" type="text" placeholder="First Name" class="form-control">
+                <div class="invalid-feedback">First Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-lastname">Last Name</label> 
                 <input id="input-personnel-lastname" type="text"  placeholder="Last Name" class="form-control">
+                <div class="invalid-feedback">Last Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-email">E-Mail</label> 
               <input id="input-personnel-email" placeholder="E-Mail" type="text" class="form-control">
+              <div class="invalid-feedback">E-Mail label can't be empty</div>
               </div>
               <div class="form-group">
                 <div>
@@ -128,17 +146,47 @@ function showEditStaffDialog(staffId) {
                 }else {
                     inputPersonnelAdmin = "Personnel"
                 }
+
+                validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail);
+                if (inputPersonnelUsername  && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail){
                 actionEditStaff(staffId,inputPersonnelUsername,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
                 destroyModalDialogs();
+                }
+
             }}
     )
+}
+function validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail){
+    if(!inputPersonnelUsername){
+        $("#input-personnel-username").addClass("is-invalid");
+    }else {
+        $("#input-personnel-username").removeClass("is-invalid");
+    }
+
+    if (!inputPersonnelPassword ) {
+        $("#input-personnel-password").addClass("is-invalid");
+    }else {$("#input-personnel-password").removeClass("is-invalid");}
+
+    if (!inputPersonnelFirstname){
+        $("#input-personnel-firstname").addClass("is-invalid");
+    }else{ $("#input-personnel-firstname").removeClass("is-invalid");}
+
+    if (!inputPersonnelLastname){
+        $("#input-personnel-lastname").addClass("is-invalid");
+    }else{ $("#input-personnel-lastname").removeClass("is-invalid");}
+
+    if (!inputPersonnelEmail){
+        $("#input-personnel-email").addClass("is-invalid");
+    }else {
+        $("#input-personnel-email").removeClass("is-invalid");
+    }
 }
 
 /**
  * TODO: The action for the save button of the create modal
  */
 function actionCreateStaff(staffId,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
-    $("#personnel-table-body").append(`
+    $("#personnel-table tbody").append(`
         <tr data-personnel-id="${staffId}">
                     <td class="personnel-table-username-label">${inputPersonnelUsername}</td>
                     <td class="personnel-table-firstname-label">${inputPersonnelFirstname}</td>
@@ -153,7 +201,8 @@ function actionCreateStaff(staffId,inputPersonnelUsername,inputPersonnelPassword
  * TODO: The action for the delete button of the edit modal
  */
 function actionDeleteStaff(staffId){
-
+    $(`tr[data-personnel-id="${staffId}"]`).remove();
+    destroyModalDialogs();
 }
 
 /**
