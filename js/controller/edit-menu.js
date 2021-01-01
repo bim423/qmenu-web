@@ -209,7 +209,7 @@ function showEditCategoryForm(categoryId) {
                 </div>
                 <div class="col">
                     <input id="input-category-name" type="text" class="form-control" placeholder="Category Name" value="${originalCategoryName}">
-                    <div class="invalid-feedback">Category name can't be empty<div>
+                    <div class="invalid-feedback">Category name can't be empty </div>
                 </div>
             </div>
             <div class="form-row">
@@ -218,7 +218,7 @@ function showEditCategoryForm(categoryId) {
                 </div>
                 <div class="col">
                     <input id="input-category-description" type="text" class="form-control" placeholder="Description" value="${originalCategoryDesc}">
-                    <div class="invalid-feedback">Category name can't be empty<div>
+                    <div class="invalid-feedback">Category name can't be empty </div>
                 </div>
             </div>
             <div class="form-row btn-row">

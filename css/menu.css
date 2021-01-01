@@ -31,7 +31,7 @@ body {
 }
 .order-checkout-container h2 {
   color: #a60f2c;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   margin: 0 0 1rem;
 }
 .order-checkout-container .row-balance {
@@ -47,6 +47,19 @@ body {
   width: 50%;
   justify-content: right;
   text-align: right;
+}
+@media screen and (max-width: 500px) {
+  .order-checkout-container .row-balance {
+    flex-direction: column;
+  }
+  .order-checkout-container .row-balance .col-balance {
+    width: 100% !important;
+    margin-bottom: 0.25rem;
+  }
+  .order-checkout-container .row-balance .col-balance-action {
+    width: 100% !important;
+    text-align: right;
+  }
 }
 
 .submenu-container {

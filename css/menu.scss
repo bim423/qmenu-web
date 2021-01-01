@@ -35,7 +35,7 @@ body {
 
   h2 {
     color: #a60f2c;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     margin: 0 0 1rem;
   }
 
@@ -54,7 +54,22 @@ body {
       justify-content: right;
       text-align: right;
     }
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      .col-balance {
+        width: 100% !important;
+        margin-bottom: 0.25rem;
+      }
+
+      .col-balance-action {
+        width: 100% !important;
+        text-align: right;
+      }
+    }
+
   }
+
 }
 
 .submenu-container {

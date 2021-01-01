@@ -231,4 +231,8 @@ input {
   margin: 8px;
 }
 
+.form-row {
+  align-items: center;
+}
+
 /*# sourceMappingURL=menu-editor.css.map */
