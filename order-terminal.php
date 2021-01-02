@@ -23,6 +23,7 @@
                         <h1 class="mt-4">Order Terminal</h1>
                         <div class="order-terminal-container">
                             <div id="order-terminal">
+                                <!-- Pending Orders -->
                                 <div id="pending-orders">
                                     <div class="order-container order-container-danger" data-order-id="1">
                                         <div class="order-desk-col">
@@ -103,6 +104,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Processing Orders -->
                                 <div id="processing-orders">
                                     <div class="order-container" data-order-id="1">
                                         <div class="order-desk-col">
@@ -198,6 +200,7 @@
         </div>
         <script src="js/vendor/jquery.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/api.js"></script>
         <script src="js/controller/order-terminal.js"></script>
         <script src="js/scripts.js"></script>
     </body>
