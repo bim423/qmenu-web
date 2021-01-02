@@ -72,6 +72,25 @@ body {
 
 }
 
+.order-complete-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: rgba(102, 255, 137, 0.2);
+  line-height: 1.5rem;
+
+  label {
+    color: darkgreen;
+    display: inline;
+    font-weight: bold;
+  }
+
+  h2 {
+    color: darkgreen;
+    font-size: 1.4rem;
+    margin: 0 0 1rem;
+  }
+}
+
 .submenu-container {
   margin-bottom: 8px;
   padding: 8px;

@@ -33,12 +33,13 @@ function addProductToCart(productId) {
     let productQuantityBadge = $(`.product-quantity[data-product_id=${productId}]`);
     let productPrice = productContainer.data("price");
     let productName = productContainer.data("name");
+    productId = Number(productId)
 
     cost = Number((cost + Number(productPrice)).toFixed(2));
     // Check if the cart contains this item
     let productQuantity = 1;
     for (let i=0; i<cart.length; i++) {
-        let pid = cart[i].product_id;
+        let pid = cart[i].productId;
         if (pid && pid === productId) {
             // If the product exists, increase quantity
             cart[i].quantity++;
@@ -49,8 +50,8 @@ function addProductToCart(productId) {
     if (productQuantity === 1) {
         // Add product to the cart
         let productOrder = {}
-        productOrder.product_id = productId;
-        productOrder.product_name = productName;
+        productOrder.productId = productId;
+        productOrder.productName = productName;
         productOrder.quantity = 1;
         cart.push(productOrder)
     }
@@ -78,7 +79,7 @@ function removeProductFromCart(productId) {
     // Check if the cart contains this item
     let productQuantity = 1;
     for (let i=0; i<cart.length; i++) {
-        let pid = cart[i].product_id;
+        let pid = cart[i].productId;
         if (pid && pid === productId) {
             // Product found, decrease quantity
             cart[i].quantity--;
@@ -147,7 +148,7 @@ function showOrderCheckoutContainer(deskLabel, deskId) {
     // Get UI components
     let menuContent = $("#menu-content");
     let bottomBar = $(".bottom-bar");
-    let checkoutContainer = $(".order-checkout-container");
+    let alertBox = $("#menu-alert-content");
 
     // Hide menu and order summary bottom bar
     menuContent.hide();
@@ -157,24 +158,28 @@ function showOrderCheckoutContainer(deskLabel, deskId) {
     let orderContent = "";
     for (let i = 0; i<cart.length; i++) {
         let productOrder = cart[i]
-        orderContent += productOrder.quantity + "x " +productOrder.product_name + "<br>"
+        orderContent += productOrder.quantity + "x " +productOrder.productName + "<br>"
     }
 
-    checkoutContainer.html(`
-        <h2><span class="fa fa-shopping-cart"></span> Checkout your order</h2>
-
-        <label>Your desk:</label> ${deskLabel} <br>
-        ${orderContent}
+    alertBox.html(`
+        <!-- Order checkout container -->
+        <div class="order-checkout-container">
+            <h2><span class="fa fa-shopping-cart"></span> Checkout your order</h2>
         
-        <div class="row-balance">
-            <div class="col-balance">
-                <label>Balance:</label> $ ${Number(cost).toFixed(2)}
-            </div>
-            <div class="col-balance-action">
-                <button id="btn-back-menu" class="menu-btn">Back</button>
-                <button id="btn-place-order" class="menu-btn menu-btn-confirm">Place Order</button>
-            </div>
-        </div>    
+            <label>Your desk:</label> ${deskLabel} <br>
+            ${orderContent}
+            
+            <div class="row-balance">
+                <div class="col-balance">
+                    <label>Balance:</label> $ ${Number(cost).toFixed(2)}
+                </div>
+                <div class="col-balance-action">
+                    <button id="btn-back-menu" class="menu-btn">Back</button>
+                    <button id="btn-place-order" class="menu-btn menu-btn-confirm">Place Order</button>
+                </div>
+            </div>    
+        </div>
+       
     `)
 
     // Set events
@@ -182,8 +187,12 @@ function showOrderCheckoutContainer(deskLabel, deskId) {
         hideOrderCheckoutContainer();
     });
 
+    $("#btn-place-order").click(function (e) {
+        placeOrder(deskId, cart)
+    })
+
     // Show check out container
-    checkoutContainer.fadeIn();
+    $(".order-checkout-container").fadeIn();
 }
 
 /**
@@ -193,4 +202,55 @@ function hideOrderCheckoutContainer() {
     $("#menu-content").fadeIn();
     $(".bottom-bar").fadeIn();
     $(".order-checkout-container").hide();
+}
+
+function showOrderCompleteContainer(deskLabel) {
+    // Get UI components
+    let menuContent = $("#menu-content");
+    let bottomBar = $(".bottom-bar");
+    let alertBox = $("#menu-alert-content");
+
+    // Hide menu and order summary bottom bar
+    menuContent.hide();
+    bottomBar.hide();
+    alertBox.hide()
+
+    let currentTime = new Date();
+    let time = currentTime.getHours() + ":" + currentTime.getMinutes();
+    alertBox.html(`
+        <!-- Order complete container -->
+        <div class="order-complete-container">
+            <h2><span class="fa fa-check"></span> Your order has been sent successfully!</h2>
+            Congratulations! Your order has sent to the restaurant personnel.<br><br>
+            <label>Your desk: </label> ${deskLabel}<br>
+            <label>Order time: </label> ${time}<br>
+            <label>Balance:</label> $ ${Number(cost).toFixed(2)}
+        </div>
+    `)
+
+    // Show check out container
+    alertBox.fadeIn();
+}
+
+function placeOrder(deskId, products) {
+    let requestBody = {
+        "state" : 0,
+        "deskId" : deskId,
+        "orderedProducts" : products
+    }
+
+    $.ajax({
+        url: API.ORDER + "/place",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function(data) {
+            // Append category to the category list
+            showOrderCompleteContainer()
+            console.log(data)
+        },
+        error : function (data) {
+            alert(data.message);
+        }
+    });
 }

@@ -107,29 +107,9 @@ HTML;
 <body>
 
 <div class="menu-container">
-    <div class="menu-header">
-        <img class="menu-header-logo" src="assets/img/logo.jpg" />
-    </div>
-    <div class="order-checkout-container">
-        <h2>Checkout your order</h2>
-
-        <label>Your desk:</label> A1<br>
-        1x Margarita pizza<br>
-        2x Tea
-
-        <div class="row-balance">
-            <div class="col-balance">
-                <label>Balance:</label> $ 49.00
-            </div>
-            <div class="col-balance-action">
-                <button class="menu-btn">Back to the menu</button>
-                <button class="menu-btn menu-btn-confirm">Place Order</button>
-            </div>
-        </div>
-    </div>
-    <div id="menu-content">
-        <?php echo get_menu_content($menu_obj);?>
-    </div>
+    <div class="menu-header"><img class="menu-header-logo" src="assets/img/logo.jpg"  alt="Restaurant Logo"/></div>
+    <div id="menu-alert-content"></div>
+    <div id="menu-content"><?php echo get_menu_content($menu_obj);?></div>
 </div>
 
 <div class="bottom-bar">
