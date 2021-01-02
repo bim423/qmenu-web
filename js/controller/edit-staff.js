@@ -4,19 +4,19 @@ $(document).ready(function () {
     let createStaffButton = $("#btn-add-staff");
 
     createStaffButton.click(function () {
-       showCreateStaffDialog()
+        showCreateStaffDialog()
     })
 
-    // TODO: Add event for each table cell seacrh jquery child nodes
-    $("#personnel-table ").on('click','tr',function (e){
+    // Add event to the each table row
+    $("#personnel-table ").on('click', 'tr', function (e) {
         let target = e.currentTarget;
         console.log(target)
         let staffId = target.dataset.personnelId;
         if (staffId) {
-            console.log(staffId)
+            console.log("Editing staff " + staffId)
             showEditStaffDialog(staffId);
         }
-    }) ;
+    });
 })
 
 function showCreateStaffDialog() {
@@ -61,33 +61,39 @@ function showCreateStaffDialog() {
             </form>
             `,
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
-        {label: "Create", class: "btn-success", onClick: function () {
+        {
+            label: "Create", class: "btn-success", onClick: function () {
                 let inputPersonnelUsername = $("#input-personnel-username").val();
                 let inputPersonnelPassword = $("#input-personnel-password").val();
                 let inputPersonnelFirstname = $("#input-personnel-firstname").val();
                 let inputPersonnelLastname = $("#input-personnel-lastname").val();
                 let inputPersonnelEmail = $("#input-personnel-email").val();
                 let inputPersonnelAdmin;
-                if ($("input:checked").is(":checked")){
+                if ($("input:checked").is(":checked")) {
                     inputPersonnelAdmin = "Admin"
-                }else {
+                } else {
                     inputPersonnelAdmin = "Personnel"
                 }
-                validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail);
+                validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
 
-                if (inputPersonnelUsername  && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail){
+                if (inputPersonnelUsername && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail) {
 
-                    actionCreateStaff(staffIndex,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
+                    actionCreateStaff(staffIndex, inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
                     staffIndex++;
                     destroyModalDialogs();
                 }
 
 
-
-            }}
+            }
+        }
     )
 }
 
+/**
+ * Show edit staff modal dialog
+ * TODO: Set input values to the previous values.
+ * @param staffId
+ */
 function showEditStaffDialog(staffId) {
     // Show create staff modal
     showModalDialog("Edit personnel",
@@ -129,55 +135,75 @@ function showEditStaffDialog(staffId) {
               </div> 
             </form>
             `,
-        {label:"delete",class:"btn-danger",onClick: function(){
-            actionDeleteStaff(staffId);
-            destroyModalDialogs();
-            }},
+        {
+            label: "delete", class: "btn-danger", onClick: function () {
+                actionDeleteStaff(staffId);
+                destroyModalDialogs();
+            }
+        },
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
-        {label: "Save", class: "btn-success", onClick : function () {
+        {
+            label: "Save", class: "btn-success", onClick: function () {
                 let inputPersonnelUsername = $("#input-personnel-username").val();
                 let inputPersonnelPassword = $("#input-personnel-password").val();
                 let inputPersonnelFirstname = $("#input-personnel-firstname").val();
                 let inputPersonnelLastname = $("#input-personnel-lastname").val();
                 let inputPersonnelEmail = $("#input-personnel-email").val();
                 let inputPersonnelAdmin;
-                if ($("input:checked").is(":checked")){
+                if ($("input:checked").is(":checked")) {
                     inputPersonnelAdmin = "Admin"
-                }else {
+                } else {
                     inputPersonnelAdmin = "Personnel"
                 }
 
-                validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail);
-                if (inputPersonnelUsername  && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail){
-                actionEditStaff(staffId,inputPersonnelUsername,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin);
-                destroyModalDialogs();
+                validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
+                if (inputPersonnelUsername && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail) {
+                    actionUpdateStaff(staffId, inputPersonnelUsername, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
+                    destroyModalDialogs();
                 }
 
-            }}
+            }
+        }
     )
 }
-function validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail){
-    if(!inputPersonnelUsername){
+
+/**
+ * Validate form data
+ * TODO: Make this function boolean then check the validation status rather than checking each value multiple times
+ * @param inputPersonnelUsername
+ * @param inputPersonnelPassword
+ * @param inputPersonnelFirstname
+ * @param inputPersonnelLastname
+ * @param inputPersonnelEmail
+ */
+function validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail) {
+    if (!inputPersonnelUsername) {
         $("#input-personnel-username").addClass("is-invalid");
-    }else {
+    } else {
         $("#input-personnel-username").removeClass("is-invalid");
     }
 
-    if (!inputPersonnelPassword ) {
+    if (!inputPersonnelPassword) {
         $("#input-personnel-password").addClass("is-invalid");
-    }else {$("#input-personnel-password").removeClass("is-invalid");}
+    } else {
+        $("#input-personnel-password").removeClass("is-invalid");
+    }
 
-    if (!inputPersonnelFirstname){
+    if (!inputPersonnelFirstname) {
         $("#input-personnel-firstname").addClass("is-invalid");
-    }else{ $("#input-personnel-firstname").removeClass("is-invalid");}
+    } else {
+        $("#input-personnel-firstname").removeClass("is-invalid");
+    }
 
-    if (!inputPersonnelLastname){
+    if (!inputPersonnelLastname) {
         $("#input-personnel-lastname").addClass("is-invalid");
-    }else{ $("#input-personnel-lastname").removeClass("is-invalid");}
+    } else {
+        $("#input-personnel-lastname").removeClass("is-invalid");
+    }
 
-    if (!inputPersonnelEmail){
+    if (!inputPersonnelEmail) {
         $("#input-personnel-email").addClass("is-invalid");
-    }else {
+    } else {
         $("#input-personnel-email").removeClass("is-invalid");
     }
 }
@@ -185,22 +211,22 @@ function validate(inputPersonnelUsername,inputPersonnelPassword , inputPersonnel
 /**
  * TODO: The action for the save button of the create modal
  */
-function actionCreateStaff(staffId,inputPersonnelUsername,inputPersonnelPassword,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
+function actionCreateStaff(staffId, inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin) {
     $("#personnel-table tbody").append(`
         <tr data-personnel-id="${staffId}">
-                    <td class="personnel-table-username-label">${inputPersonnelUsername}</td>
-                    <td class="personnel-table-firstname-label">${inputPersonnelFirstname}</td>
-                    <td class="personnel-table-lastname-label">${inputPersonnelLastname}</td>
-                    <td class="personnel-table-email-label">${inputPersonnelEmail}</td>
-                    <td class="personnel-table-admin-label">${inputPersonnelAdmin}</td>
-                    
+            <td class="personnel-table-username-label">${inputPersonnelUsername}</td>
+            <td class="personnel-table-firstname-label">${inputPersonnelFirstname}</td>
+            <td class="personnel-table-lastname-label">${inputPersonnelLastname}</td>
+            <td class="personnel-table-email-label">${inputPersonnelEmail}</td>
+            <td class="personnel-table-admin-label">${inputPersonnelAdmin}</td>
         </tr>
     `);
 }
+
 /**
  * TODO: The action for the delete button of the edit modal
  */
-function actionDeleteStaff(staffId){
+function actionDeleteStaff(staffId) {
     $(`tr[data-personnel-id="${staffId}"]`).remove();
     destroyModalDialogs();
 }
@@ -208,13 +234,12 @@ function actionDeleteStaff(staffId){
 /**
  * TODO: The action for the edit button of the edit modal
  */
-function actionEditStaff(staffId,inputPersonnelUsername,inputPersonnelFirstname,inputPersonnelLastname,inputPersonnelEmail,inputPersonnelAdmin) {
+function actionUpdateStaff(staffId, inputPersonnelUsername, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin) {
     $(`tr[data-personnel-id="${staffId}"] .personnel-table-username-label`).text(inputPersonnelUsername);
     $(`tr[data-personnel-id="${staffId}"] .personnel-table-firstname-label`).text(inputPersonnelFirstname);
     $(`tr[data-personnel-id="${staffId}"] .personnel-table-lastname-label`).text(inputPersonnelLastname);
     $(`tr[data-personnel-id="${staffId}"] .personnel-table-email-label`).text(inputPersonnelEmail);
     $(`tr[data-personnel-id="${staffId}"] .personnel-table-admin-label`).text(inputPersonnelAdmin);
-
 }
 
 /** API CRUD **/
