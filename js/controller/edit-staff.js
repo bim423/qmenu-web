@@ -95,13 +95,18 @@ function showCreateStaffDialog() {
  * @param staffId
  */
 function showEditStaffDialog(staffId) {
+    let username = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-username-label`).text();
+    let firstname = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-firstname-label`).text();
+    let lastname = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-lastname-label`).text();
+    let email = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-email-label`).text();
+
     // Show create staff modal
     showModalDialog("Edit personnel",
         `
             <form>
               <div class="form-group">
                 <label for="text">Username</label> 
-                <input  id="input-personnel-username" type="text" placeholder="Username" class="form-control" required>
+                <input  id="input-personnel-username" type="text" placeholder="Username" class="form-control" value="${username}">
                 <div class="invalid-feedback">Username label can't be empty</div>
               </div>
               <div class="form-group">
@@ -111,17 +116,17 @@ function showEditStaffDialog(staffId) {
               </div>
               <div class="form-group">
                 <label for="input-personnel-firstname">First Name</label> 
-                <input id="input-personnel-firstname" type="text" placeholder="First Name" class="form-control">
+                <input id="input-personnel-firstname" type="text" placeholder="First Name" value="${firstname}" class="form-control">
                 <div class="invalid-feedback">First Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-lastname">Last Name</label> 
-                <input id="input-personnel-lastname" type="text"  placeholder="Last Name" class="form-control">
+                <input id="input-personnel-lastname" type="text"  placeholder="Last Name" value="${lastname}" class="form-control">
                 <div class="invalid-feedback">Last Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-email">E-Mail</label> 
-              <input id="input-personnel-email" placeholder="E-Mail" type="text" class="form-control">
+              <input id="input-personnel-email" placeholder="E-Mail" type="text" value="${email}" class="form-control">
               <div class="invalid-feedback">E-Mail label can't be empty</div>
               </div>
               <div class="form-group">
@@ -254,4 +259,3 @@ function updateStaff() {
 function deleteStaff() {
     //TODO: API request
 }
-
