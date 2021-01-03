@@ -74,9 +74,9 @@ function showCreateStaffDialog() {
                 } else {
                     inputPersonnelAdmin = "Personnel"
                 }
-                validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
+                let status = validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
 
-                if (inputPersonnelUsername && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail) {
+                 if (status) {
 
                     actionCreateStaff(staffIndex, inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
                     staffIndex++;
@@ -91,7 +91,6 @@ function showCreateStaffDialog() {
 
 /**
  * Show edit staff modal dialog
- * TODO: Set input values to the previous values.
  * @param staffId
  */
 function showEditStaffDialog(staffId) {
@@ -161,8 +160,8 @@ function showEditStaffDialog(staffId) {
                     inputPersonnelAdmin = "Personnel"
                 }
 
-                validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
-                if (inputPersonnelUsername && inputPersonnelPassword && inputPersonnelFirstname && inputPersonnelLastname && inputPersonnelEmail) {
+                let status = validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
+                if (status) {
                     actionUpdateStaff(staffId, inputPersonnelUsername, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
                     destroyModalDialogs();
                 }
@@ -182,35 +181,42 @@ function showEditStaffDialog(staffId) {
  * @param inputPersonnelEmail
  */
 function validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail) {
+    let validation_status = true;
     if (!inputPersonnelUsername) {
         $("#input-personnel-username").addClass("is-invalid");
+        validation_status = false;
     } else {
         $("#input-personnel-username").removeClass("is-invalid");
     }
 
     if (!inputPersonnelPassword) {
         $("#input-personnel-password").addClass("is-invalid");
+        validation_status = false;
     } else {
         $("#input-personnel-password").removeClass("is-invalid");
     }
 
     if (!inputPersonnelFirstname) {
         $("#input-personnel-firstname").addClass("is-invalid");
+        validation_status = false;
     } else {
         $("#input-personnel-firstname").removeClass("is-invalid");
     }
 
     if (!inputPersonnelLastname) {
         $("#input-personnel-lastname").addClass("is-invalid");
+        validation_status = false;
     } else {
         $("#input-personnel-lastname").removeClass("is-invalid");
     }
 
     if (!inputPersonnelEmail) {
         $("#input-personnel-email").addClass("is-invalid");
+        validation_status = false;
     } else {
         $("#input-personnel-email").removeClass("is-invalid");
     }
+    return validation_status;
 }
 
 /**
