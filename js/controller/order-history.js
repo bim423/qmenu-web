@@ -86,7 +86,8 @@ function getProductCostById(productId) {
 }
 
 function formatDate(arrivalTime) {
-    return arrivalTime;
+    let d = new Date(arrivalTime);
+    return d.toLocaleString();
 }
 
 function formatState(state) {
