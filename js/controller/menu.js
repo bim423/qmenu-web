@@ -2,6 +2,7 @@ let menu = [];
 let cart = [];
 let cost = 0.00;
 let orderSummary;
+let deskLabel;
 
 $(document).ready(function () {
     orderSummary = $("#order-summary");
@@ -75,6 +76,7 @@ function removeProductFromCart(productId) {
     let productQuantityBadge = $(`.product-quantity[data-product_id=${productId}]`);
     let productPrice = productContainer.data("price");
     cost = Number((cost - Number(productPrice)).toFixed(2));
+    productId = Number(productId)
 
     // Check if the cart contains this item
     let productQuantity = 1;
@@ -130,7 +132,7 @@ function actionOrderCheckout() {
         contentType: 'application/json',
         success: function(data) {
             let deskId = data.id;
-            let deskLabel = data.label;
+            deskLabel = data.label;
             showOrderCheckoutContainer(deskLabel, deskId);
         },
         error : function (data) {
@@ -246,7 +248,7 @@ function placeOrder(deskId, products) {
         contentType: 'application/json',
         success: function(data) {
             // Append category to the category list
-            showOrderCompleteContainer()
+            showOrderCompleteContainer(deskLabel)
             console.log(data)
         },
         error : function (data) {
