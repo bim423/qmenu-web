@@ -13,7 +13,16 @@ function destroy_session() {
     setcookie("qmenu_session_token", null, -1, '/');
 }
 
-function authenticated_pass(){
+function auth_pass(){
+    // Load session data
+    $session_data = load_session();
+    if (!$session_data) {
+        header("Location: login.php?expired=1");
+        exit();
+    }
+}
+
+function admin_pass(){
     // Load session data
     $session_data = load_session();
     if (!$session_data) header("Location: login.php?expired=1");

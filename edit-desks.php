@@ -2,7 +2,7 @@
 include "inc/model/api_config.php";
 require_once "inc/model/session.php";
 
-authenticated_pass();
+admin_pass();
 
 $response = file_get_contents(API_DESKS);
 $response_obj = json_decode($response);;

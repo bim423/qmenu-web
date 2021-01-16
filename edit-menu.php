@@ -1,6 +1,6 @@
 <?php
 require_once "inc/model/session.php";
-authenticated_pass();
+admin_pass();
 ?>
 <html lang="en">
 

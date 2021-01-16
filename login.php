@@ -2,7 +2,13 @@
     require_once "inc/model/session.php";
     // Load session data
     $session_data = load_session();
-    if ($session_data) header("Location: dashboard.php");
+    if ($session_data) {
+        if ($session_data->admin)
+            header("Location: dashboard.php");
+        else
+            header("Location: order-terminal.php");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
