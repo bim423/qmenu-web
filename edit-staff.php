@@ -51,9 +51,9 @@ admin_pass();
     </div>
 
 </div>
-<script src="js/scripts.js"></script>
 <script src="js/vendor/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
 <script src="js/api.js"></script>
 <script src="js/addons/modals.js"></script>
 <script src="js/controller/edit-staff.js"></script>

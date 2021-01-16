@@ -9,6 +9,8 @@
             header("Location: order-terminal.php");
     }
 
+    $expired = isset($_GET["expired"]);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +32,11 @@
                     <div class="card mt-5" style="top: 40%;">
                         <div class="card-header"><h3 class="text-center my-2">QRMenu - Login</h3></div>
                         <div class="card-body">
-                            <div id="login-alert-container"></div>
+                            <div id="login-alert-container">
+                                <?php
+                                if ($expired) echo "<div class='alert alert-warning'>You need to login first.</div>"
+                                ?>
+                            </div>
                             <form>
                                 <div class="form-group">
                                     <label class="mb-1" for="inputUsername">Username</label>
@@ -58,6 +64,7 @@
             </div>
         </footer>
     </body>
+
     <script src="js/vendor/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>

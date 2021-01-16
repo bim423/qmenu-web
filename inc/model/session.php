@@ -29,7 +29,8 @@ function admin_pass(){
 
     // Check privileges
     if (!$session_data->admin) {
-        header("Location: order-terminal.php");
+        $error_content = file_get_contents("inc/error_page/401.html");
+        echo $error_content;
         exit();
     }
 }
