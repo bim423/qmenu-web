@@ -154,7 +154,7 @@ function buildTable(orders) {
  */
 function drawCharts(){
     // Orders hourly chart
-    let ctx = document.getElementById("myAreaChart");
+    let ctx = document.getElementById("ordersHourlyChart");
     let ordersHourlyChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -200,7 +200,7 @@ function drawCharts(){
     });
 
     // Monthly revenue chart
-    let barChart = document.getElementById("myBarChart");
+    let barChart = document.getElementById("revenueMonthlyChart");
     let monthlyRevenueChart = new Chart(barChart, {
         type: 'bar',
         data: {

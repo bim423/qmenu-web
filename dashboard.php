@@ -30,7 +30,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Daily Revenue</h4>
-                                <h5 id="daily-revenue-label">$23,220</h5>
+                                <h5 id="daily-revenue-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Orders Today</h4>
-                                <h5 id="daily-orders-label">1909</h5>
+                                <h5 id="daily-orders-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Monthly Revenue</h4>
-                                <h5 id="monthly-revenue-label">$190,213</h5>
+                                <h5 id="monthly-revenue-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Monthly Orders</h4>
-                                <h5 id="monthly-orders-label">10213</h5>
+                                <h5 id="monthly-orders-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                                 Orders Today
                             </div>
                             <div class="card-body">
-                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                <canvas id="ordersHourlyChart" width="100%" height="40"></canvas>
                             </div>
                         </div>
                     </div>
@@ -79,10 +79,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar mr-1"></i>
-                                Orders This Month
+                                Revenue This Month
                             </div>
                             <div class="card-body">
-                                <canvas id="myBarChart" width="100%" height="40"></canvas>
+                                <canvas id="revenueMonthlyChart" width="100%" height="40"></canvas>
                             </div>
                         </div>
                     </div>
