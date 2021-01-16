@@ -1,3 +1,7 @@
+<?php
+require_once "inc/model/session.php";
+authenticated_pass();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

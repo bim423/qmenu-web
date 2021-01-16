@@ -23,6 +23,7 @@ function auth(uid, pass) {
         success: function (data) {
             setAlertBoxContent("success", data.message);
             Cookies.set("qmenu_session_token", data.user);
+            window.open("login.php", "_top")
         },
         error: function (data) {
             let dataObj = JSON.parse(data.responseText)

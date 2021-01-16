@@ -1,10 +1,12 @@
 <?php
 include "inc/model/api_config.php";
+require_once "inc/model/session.php";
+
+authenticated_pass();
 
 $response = file_get_contents(API_DESKS);
 $response_obj = json_decode($response);;
 $desks = $response_obj;
-
 
 function get_desk_editor_table_rows_content($desks){
     $table_rows = "";

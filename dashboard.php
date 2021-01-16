@@ -1,3 +1,8 @@
+<?php
+require_once "inc/model/session.php";
+authenticated_pass();
+?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8"/>

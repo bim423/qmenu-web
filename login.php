@@ -1,3 +1,9 @@
+<?php
+    require_once "inc/model/session.php";
+    // Load session data
+    $session_data = load_session();
+    if ($session_data) header("Location: dashboard.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
