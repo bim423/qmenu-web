@@ -23,9 +23,9 @@
 
             <h1 class="my-4">Staff</h1>
             <div class="d-flex flex-row mb-2 align-items-center">
-                <div>Showing 2 total personal accounts</div>
+                <div>Showing 2 total personnel accounts</div>
                 <button style="margin-left: auto" type="button" class="btn btn-success" id="btn-add-staff">
-                    Create new personal
+                    Create new personnel
                 </button>
             </div>
 
@@ -40,21 +40,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-personnel-id="1">
-                    <td>john_doe</td>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>Admin</td>
-                </tr>
-                <tr data-personnel-id="2">
-                    <td>mary_moe</td>
-                    <td>Mary</td>
-                    <td>Moe</td>
-                    <td>mary@example.com</td>
-                    <td>Personnel</td>
-                </tr>
-
                 </tbody>
             </table>
         </div>
@@ -65,6 +50,7 @@
 <script src="js/scripts.js"></script>
 <script src="js/vendor/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/api.js"></script>
 <script src="js/addons/modals.js"></script>
 <script src="js/controller/edit-staff.js"></script>
 

@@ -10,7 +10,7 @@ a:hover {
 }
 
 .bg-login {
-  background: url("assets/img/bg-login.jpg");
+  background: url("../assets/img/bg-login.jpg") !important;
 }
 
 .card {

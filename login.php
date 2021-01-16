@@ -11,54 +11,45 @@
     </head>
 
     <body class="bg-login">
-        <div id="layoutAuthentication">
-            <div id="layoutAuthentication_content">
-                <main>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-5">
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center my-2">Login</h3></div>
-                                    <div class="card-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label class="mb-1" for="inputEmailAddress">Username</label>
-                                                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter email address" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="mb-1" for="inputPassword">Password</label>
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Enter password" />
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary raised" href="dashboard.php">Login</a>
-                                            </div>
-                                        </form>
-                                    </div>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="card mt-5" style="top: 40%;">
+                        <div class="card-header"><h3 class="text-center my-2">QRMenu - Login</h3></div>
+                        <div class="card-body">
+                            <div id="login-alert-container"></div>
+                            <form>
+                                <div class="form-group">
+                                    <label class="mb-1" for="inputUsername">Username</label>
+                                    <input class="form-control" id="inputUsername" type="email" placeholder="Enter username" />
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="mb-1" for="inputPassword">Password</label>
+                                    <input class="form-control" id="inputPassword" type="password" placeholder="Enter password" />
+                                </div>
+                                <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                    <a id="btn-login" class="btn btn-danger raised btn-block">Login</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </main>
-            </div>
-            <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <div class="text-muted">BIM423 - Group 8</div>
-                        </div>
-                    </div>
-                </footer>
+                </div>
             </div>
         </div>
-        <script src="js/vendor/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+
+        <footer class="py-4 mt-auto" style="background: rgba(255,255,255,0.5); width:100%; position: absolute; bottom: 0">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="text-muted">BIM423 - Group 8</div>
+                </div>
+            </div>
+        </footer>
     </body>
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/addons/js.cookie-2.2.1.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/controller/login.js"></script>
 </html>

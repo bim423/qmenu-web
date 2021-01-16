@@ -1,11 +1,44 @@
 let staffIndex = 3;
+let personnel_data;
 
 $(document).ready(function () {
-    let createStaffButton = $("#btn-add-staff");
+    // Load personnel data
+    loadPersonnelData();
+})
 
-    createStaffButton.click(function () {
-        showCreateStaffDialog()
+/**
+ * Make API request and load personnel data
+ */
+function loadPersonnelData() {
+    // Get menu from rest API
+    $.ajax({
+        url: API.PERSONNEL,
+        type: 'GET',
+        contentType: 'application/json',
+        success: function (data) {
+            personnel_data = data;
+            // Populate table with the data
+            initTable()
+        }
     })
+}
+
+/**
+ * Initialize staff table with personnel data
+ */
+function initTable() {
+    // Initialize create button
+    let createStaffButton = $("#btn-add-staff");
+    createStaffButton.click(function () {
+        showCreatePersonnelDialog()
+    })
+
+    // Add rows to the table
+    for (let i=0; i<personnel_data.length; i++) {
+        let personnel = personnel_data[i];
+        let role = (personnel.admin) ? "Admin" : "Personnel";
+        addPersonnelRow(personnel.id, personnel.username, personnel.firstName, personnel.lastName, personnel.email, personnel.admin)
+    }
 
     // Add event to the each table row
     $("#personnel-table ").on('click', 'tr', function (e) {
@@ -13,13 +46,30 @@ $(document).ready(function () {
         console.log(target)
         let staffId = target.dataset.personnelId;
         if (staffId) {
-            console.log("Editing staff " + staffId)
-            showEditStaffDialog(staffId);
+            console.log("Editing personnel " + staffId)
+            showEditPersonnelDialog(staffId);
         }
     });
-})
+}
 
-function showCreateStaffDialog() {
+/**
+ * Returns the personnel with the given ID.
+ * @param staffId
+ * @returns {*}
+ */
+function getPersonnelById(staffId) {
+    staffId = Number(staffId);
+    for (let i=0; i<personnel_data.length; i++) {
+        let personnel = personnel_data[i];
+        if (personnel.id === staffId)
+            return personnel
+    }
+}
+
+/**
+ * Show create new personnel dialog
+ */
+function showCreatePersonnelDialog() {
     // Show create staff modal
     showModalDialog("Create new personnel",
         `
@@ -63,27 +113,20 @@ function showCreateStaffDialog() {
         {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
         {
             label: "Create", class: "btn-success", onClick: function () {
-                let inputPersonnelUsername = $("#input-personnel-username").val();
-                let inputPersonnelPassword = $("#input-personnel-password").val();
-                let inputPersonnelFirstname = $("#input-personnel-firstname").val();
-                let inputPersonnelLastname = $("#input-personnel-lastname").val();
-                let inputPersonnelEmail = $("#input-personnel-email").val();
-                let inputPersonnelAdmin;
-                if ($("input:checked").is(":checked")) {
-                    inputPersonnelAdmin = "Admin"
-                } else {
-                    inputPersonnelAdmin = "Personnel"
-                }
-                let status = validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
+                let inputUsername = $("#input-personnel-username").val();
+                let inputPassword = $("#input-personnel-password").val();
+                let inputFirstName = $("#input-personnel-firstname").val();
+                let inputLastName = $("#input-personnel-lastname").val();
+                let inputEmail = $("#input-personnel-email").val();
+                let inputAdmin = Boolean($("input:checked").is(":checked"));
+
+                let status = validate(inputUsername, inputPassword,
+                    inputFirstName, inputLastName, inputEmail);
 
                  if (status) {
-
-                    actionCreateStaff(staffIndex, inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
+                    createPersonnel(inputUsername, inputPassword, inputFirstName, inputLastName, inputEmail, inputAdmin)
                     staffIndex++;
-                    destroyModalDialogs();
                 }
-
-
             }
         }
     )
@@ -93,13 +136,14 @@ function showCreateStaffDialog() {
  * Show edit staff modal dialog
  * @param staffId
  */
-function showEditStaffDialog(staffId) {
-    let username = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-username-label`).text();
-    let firstname = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-firstname-label`).text();
-    let lastname = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-lastname-label`).text();
-    let email = $(`tr[data-personnel-id="${staffId}"] > .personnel-table-email-label`).text();
+function showEditPersonnelDialog(staffId) {
+    let personnel = getPersonnelById(staffId);
+    let username = personnel.username;
+    let firstName = personnel.firstName;
+    let lastName = personnel.lastName;
+    let email = personnel.email;
 
-    // Show create staff modal
+    // Show edit personnel modal
     showModalDialog("Edit personnel",
         `
             <form>
@@ -115,12 +159,12 @@ function showEditStaffDialog(staffId) {
               </div>
               <div class="form-group">
                 <label for="input-personnel-firstname">First Name</label> 
-                <input id="input-personnel-firstname" type="text" placeholder="First Name" value="${firstname}" class="form-control">
+                <input id="input-personnel-firstname" type="text" placeholder="First Name" value="${firstName}" class="form-control">
                 <div class="invalid-feedback">First Name label can't be empty</div>
               </div>
               <div class="form-group">
                 <label for="input-personnel-lastname">Last Name</label> 
-                <input id="input-personnel-lastname" type="text"  placeholder="Last Name" value="${lastname}" class="form-control">
+                <input id="input-personnel-lastname" type="text"  placeholder="Last Name" value="${lastName}" class="form-control">
                 <div class="invalid-feedback">Last Name label can't be empty</div>
               </div>
               <div class="form-group">
@@ -140,30 +184,34 @@ function showEditStaffDialog(staffId) {
             </form>
             `,
         {
-            label: "delete", class: "btn-danger", onClick: function () {
-                actionDeleteStaff(staffId);
+            label: "Delete", class: "btn-danger", onClick: function () {
+                deletePersonnelRow(staffId);
                 destroyModalDialogs();
             }
         },
-        {label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
+        {   label: "Cancel", class: "btn-danger", onClick: destroyModalDialogs},
         {
             label: "Save", class: "btn-success", onClick: function () {
-                let inputPersonnelUsername = $("#input-personnel-username").val();
-                let inputPersonnelPassword = $("#input-personnel-password").val();
-                let inputPersonnelFirstname = $("#input-personnel-firstname").val();
-                let inputPersonnelLastname = $("#input-personnel-lastname").val();
-                let inputPersonnelEmail = $("#input-personnel-email").val();
-                let inputPersonnelAdmin;
-                if ($("input:checked").is(":checked")) {
-                    inputPersonnelAdmin = "Admin"
-                } else {
-                    inputPersonnelAdmin = "Personnel"
-                }
+                // Get form inputs
+                let inputUsername = $("#input-personnel-username").val();
+                let inputPassword = $("#input-personnel-password").val();
+                let inputFirstName = $("#input-personnel-firstname").val();
+                let inputLastName = $("#input-personnel-lastname").val();
+                let inputEmail = $("#input-personnel-email").val();
+                let inputAdmin = Boolean($("input:checked").is(":checked"))
 
-                let status = validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail);
+                // Care about password only if a new password is entered
+                let newPassword;
+                if (!inputPassword) {
+                    inputPassword = true;
+                    newPassword = undefined;
+                } else {
+                    newPassword = inputPassword;
+                }
+                let status = validate(inputUsername, inputPassword, inputFirstName, inputLastName, inputEmail);
+
                 if (status) {
-                    actionUpdateStaff(staffId, inputPersonnelUsername, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin);
-                    destroyModalDialogs();
+                    updatePersonnel(staffId, inputUsername, newPassword, inputFirstName, inputLastName, inputEmail, inputAdmin)
                 }
 
             }
@@ -173,44 +221,43 @@ function showEditStaffDialog(staffId) {
 
 /**
  * Validate form data
- * TODO: Make this function boolean then check the validation status rather than checking each value multiple times
- * @param inputPersonnelUsername
- * @param inputPersonnelPassword
- * @param inputPersonnelFirstname
- * @param inputPersonnelLastname
- * @param inputPersonnelEmail
+ * @param username
+ * @param password
+ * @param firstName
+ * @param lastName
+ * @param email
  */
-function validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail) {
+function validate(username, password, firstName, lastName, email) {
     let validation_status = true;
-    if (!inputPersonnelUsername) {
+    if (!username) {
         $("#input-personnel-username").addClass("is-invalid");
         validation_status = false;
     } else {
         $("#input-personnel-username").removeClass("is-invalid");
     }
 
-    if (!inputPersonnelPassword) {
+    if (!password) {
         $("#input-personnel-password").addClass("is-invalid");
         validation_status = false;
     } else {
         $("#input-personnel-password").removeClass("is-invalid");
     }
 
-    if (!inputPersonnelFirstname) {
+    if (!firstName) {
         $("#input-personnel-firstname").addClass("is-invalid");
         validation_status = false;
     } else {
         $("#input-personnel-firstname").removeClass("is-invalid");
     }
 
-    if (!inputPersonnelLastname) {
+    if (!lastName) {
         $("#input-personnel-lastname").addClass("is-invalid");
         validation_status = false;
     } else {
         $("#input-personnel-lastname").removeClass("is-invalid");
     }
 
-    if (!inputPersonnelEmail) {
+    if (!email) {
         $("#input-personnel-email").addClass("is-invalid");
         validation_status = false;
     } else {
@@ -220,48 +267,102 @@ function validate(inputPersonnelUsername, inputPersonnelPassword, inputPersonnel
 }
 
 /**
- * TODO: The action for the save button of the create modal
+ * Add a row to the personnel table
+ * @param staffId
+ * @param username
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @param admin
  */
-function actionCreateStaff(staffId, inputPersonnelUsername, inputPersonnelPassword, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin) {
+function addPersonnelRow(staffId, username, firstName, lastName, email, admin) {
+    let adminLabel = (admin) ? "Admin" : "Personnel";
     $("#personnel-table tbody").append(`
         <tr data-personnel-id="${staffId}">
-            <td class="personnel-table-username-label">${inputPersonnelUsername}</td>
-            <td class="personnel-table-firstname-label">${inputPersonnelFirstname}</td>
-            <td class="personnel-table-lastname-label">${inputPersonnelLastname}</td>
-            <td class="personnel-table-email-label">${inputPersonnelEmail}</td>
-            <td class="personnel-table-admin-label">${inputPersonnelAdmin}</td>
+            <td class="username-label">${username}</td>
+            <td class="first-name-label">${firstName}</td>
+            <td class="last-name-label">${lastName}</td>
+            <td class="email-label">${email}</td>
+            <td class="admin-label">${adminLabel}</td>
         </tr>
     `);
 }
 
 /**
- * TODO: The action for the delete button of the edit modal
+ * Remove a row from personnel table
+ * @param staffId
  */
-function actionDeleteStaff(staffId) {
+function deletePersonnelRow(staffId) {
     $(`tr[data-personnel-id="${staffId}"]`).remove();
     destroyModalDialogs();
 }
 
 /**
- * TODO: The action for the edit button of the edit modal
+ * Update a personnel row with the given data
+ * @param staffId
+ * @param username
+ * @param firstName
+ * @param lastName
+ * @param email
+ * @param admin
  */
-function actionUpdateStaff(staffId, inputPersonnelUsername, inputPersonnelFirstname, inputPersonnelLastname, inputPersonnelEmail, inputPersonnelAdmin) {
-    $(`tr[data-personnel-id="${staffId}"] .personnel-table-username-label`).text(inputPersonnelUsername);
-    $(`tr[data-personnel-id="${staffId}"] .personnel-table-firstname-label`).text(inputPersonnelFirstname);
-    $(`tr[data-personnel-id="${staffId}"] .personnel-table-lastname-label`).text(inputPersonnelLastname);
-    $(`tr[data-personnel-id="${staffId}"] .personnel-table-email-label`).text(inputPersonnelEmail);
-    $(`tr[data-personnel-id="${staffId}"] .personnel-table-admin-label`).text(inputPersonnelAdmin);
+function updatePersonnelRow(staffId, username, firstName, lastName, email, admin) {
+    let adminLabel = (admin) ? "Admin" : "Personnel";
+    $(`tr[data-personnel-id="${staffId}"] .username-label`).text(username);
+    $(`tr[data-personnel-id="${staffId}"] .first-name-label`).text(firstName);
+    $(`tr[data-personnel-id="${staffId}"] .last-name-label`).text(lastName);
+    $(`tr[data-personnel-id="${staffId}"] .email-label`).text(email);
+    $(`tr[data-personnel-id="${staffId}"] .admin-label`).text(adminLabel);
 }
 
-/** API CRUD **/
-function createStaff() {
-    //TODO: API request
+/** API CRUD OPERATIONS **/
+function createPersonnel(username, password, firstName, lastName, email, admin) {
+    let requestBody = {
+        "username": username,
+        "password": password,
+        "firstName" : firstName,
+        "lastName" : lastName,
+        "email": email,
+        "admin": Number(admin)
+    }
+    $.ajax({
+        url: API.PERSONNEL + "/create",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function (data) {
+            let personnel = requestBody;
+            personnel.id = data.id;
+            personnel_data.push(personnel)
+            addPersonnelRow(data.id, username, firstName, lastName, email, admin);
+            destroyModalDialogs();
+        }
+    })
 }
+function updatePersonnel(id, username, password, firstName, lastName, email, admin) {
+    let requestBody = {
+        "id" : id,
+        "username": username,
+        "firstName" : firstName,
+        "lastName" : lastName,
+        "email": email,
+        "admin": Number(admin)
+    }
+    if (password) requestBody.password = password;
 
-function updateStaff() {
-    //TODO: API request
+    $.ajax({
+        url: API.PERSONNEL + "/update",
+        type: 'PUT',
+        data: JSON.stringify(requestBody),
+        contentType: 'application/json',
+        success: function (data) {
+            updatePersonnelRow(data.id, username, firstName, lastName, email, admin);
+            destroyModalDialogs();
+        }
+    })
 }
+function deletePersonnel() {
+    let requestBody = {
 
-function deleteStaff() {
-    //TODO: API request
+    }
 }

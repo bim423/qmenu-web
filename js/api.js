@@ -6,5 +6,7 @@ const API = {
     PRODUCT : API_ROOT + "product",
     SUBMENU : API_ROOT + "submenu",
     DESK : API_ROOT + "desk",
-    ORDER : API_ROOT + "order"
+    ORDER : API_ROOT + "order",
+    PERSONNEL : API_ROOT + "personnel",
+    AUTH : API_ROOT + "auth"
 }
