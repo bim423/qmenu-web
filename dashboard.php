@@ -1,3 +1,8 @@
+<?php
+require_once "inc/model/session.php";
+admin_pass();
+?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -30,7 +35,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Daily Revenue</h4>
-                                <h5>$23,220</h5>
+                                <h5 id="daily-revenue-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -39,7 +44,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Orders Today</h4>
-                                <h5>1909</h5>
+                                <h5 id="daily-orders-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -48,7 +53,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Monthly Revenue</h4>
-                                <h5>$190,213</h5>
+                                <h5 id="monthly-revenue-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -57,7 +62,7 @@
                         <div class="card text-white mb-4 stat-card">
                             <div class="card-body">
                                 <h4>Monthly Orders</h4>
-                                <h5>10213</h5>
+                                <h5 id="monthly-orders-label"></h5>
                             </div>
                         </div>
                     </div>
@@ -71,7 +76,7 @@
                                 Orders Today
                             </div>
                             <div class="card-body">
-                                <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                <canvas id="ordersHourlyChart" width="100%" height="40"></canvas>
                             </div>
                         </div>
                     </div>
@@ -79,10 +84,10 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar mr-1"></i>
-                                Orders This Month
+                                Revenue This Month
                             </div>
                             <div class="card-body">
-                                <canvas id="myBarChart" width="100%" height="40"></canvas>
+                                <canvas id="revenueMonthlyChart" width="100%" height="40"></canvas>
                             </div>
                         </div>
                     </div>
@@ -99,41 +104,6 @@
                                 <div class="table-responsive table-recent-orders">
                                     <table class="table">
                                         <tbody>
-                                            <tr>
-                                                <td>A1</td>
-                                                <td class="order-detail">2x Turkish Tea<br>
-                                                    1x Margarita Pizza</td>
-                                                <td class="text-danger order-status">Pending</td>
-                                                <td class="order-cost">$ 45</td>
-                                            </tr>
-                                            <tr>
-                                                <td>A2</td>
-                                                <td class="order-detail">2x Café Americano<br>
-                                                    1x Turkish Tea</td>
-                                                <td class="text-success order-status">Delivered</td>
-                                                <td class="order-cost">$ 45</td>
-                                            </tr>
-                                            <tr>
-                                                <td>A4</td>
-                                                <td class="order-detail">1x Royal Pizza<br>
-                                                    1x Margarita Pizza<br>
-                                                    1x Napolitana Pizza
-                                                    </td>
-                                                <td class="text-warning order-status">Processing</td>
-                                                <td class="order-cost">$ 75</td>
-                                            </tr>
-                                            <tr>
-                                                <td>A5</td>
-                                                <td class="order-detail">2x Café Americano</td>
-                                                <td class="text-success order-status">Delivered</td>
-                                                <td class="order-cost">$ 15</td>
-                                            </tr>
-                                            <tr>
-                                                <td>B2</td>
-                                                <td class="order-detail">2x Turkish Tea<br>
-                                                <td class="text-success order-status">Delivered</td>
-                                                <td class="order-cost">$ 5</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -148,7 +118,7 @@
         <?php include "inc/footer.php" ?>
     </div>
 </div>
-<script src="js/vendor/jquery-3.5.1.slim.js" crossorigin="anonymous"></script>
+<script src="js/vendor/jquery.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="js/scripts.js"></script>
@@ -157,5 +127,7 @@
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 <script src="assets/demo/datatables-demo.js"></script>
+<script src="js/api.js"></script>
+<script src="js/controller/dashboard.js"></script>
 </body>
 </html>

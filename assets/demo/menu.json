@@ -1,0 +1,84 @@
+{
+    "menu" : [
+      {
+        "category": "Coffee",
+        "description": "Coffees from espresso lab",
+        "products" : [
+          {
+            "product_id": 0,
+            "product_name": "Filter Coffee",
+            "description": "Fresh filtered drip coffee",
+            "price": 2.95
+          },
+          {
+            "product_id": 1,
+            "product_name": "Espresso",
+            "description": "A product description",
+            "price": 2.95
+          },
+          {
+            "product_id": 2,
+            "product_name": "Café Latte",
+            "description": "A product description",
+            "price": 4.95
+          },
+          {
+            "product_id": 3,
+            "product_name": "Mocha Latte",
+            "description": "A product description",
+            "price": 4.95
+          },
+          {
+            "product_id": 4,
+            "product_name": "Vanilla Latte",
+            "description": "A product description",
+            "price": 6.95
+          },
+          {
+            "product_id": 5,
+            "product_name": "Caramel Latte",
+            "description": "A product description",
+            "price": 6.95
+          }
+        ]
+      },
+
+      {
+        "category": "Pizza",
+        "description": "Fresh Italian Pizza",
+        "products" : [
+          {
+            "product_id": 6,
+            "product_name": "Margarita",
+            "description": "A product description",
+            "price": 22
+          },
+          {
+            "product_id": 7,
+            "product_name": "Mexican",
+            "description": "A product description",
+            "price": 31
+          },
+          {
+            "product_id": 8,
+            "product_name": "Napolitan",
+            "description": "A product description",
+            "price": 41
+          },
+          {
+            "product_id": 9,
+            "product_name": "Hawaian",
+            "description": "A product description",
+            "price": 49
+          },
+          {
+            "product_id": 10,
+            "product_name": "Classic Italian",
+            "description": "A product description",
+            "price": 38
+          }
+        ]
+      }
+    ]
+
+}

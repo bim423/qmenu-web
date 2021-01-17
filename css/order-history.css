@@ -1,0 +1,11 @@
+.table-order-history td {
+  vertical-align: inherit;
+}
+.table-order-history .order-state {
+  font-weight: bold;
+}
+.table-order-history .order-detail {
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=order-history.css.map */

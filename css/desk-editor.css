@@ -1,0 +1,41 @@
+.desk-table {
+  margin: 0;
+}
+.desk-table thead {
+  background: rgba(0, 0, 0, 0.02);
+}
+.desk-table thead th {
+  font-size: 1.15rem;
+  vertical-align: middle;
+}
+.desk-table tr {
+  transition: 0.2s;
+}
+.desk-table tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+.desk-table tr:hover .desk-table-actions .btn-table-action {
+  visibility: visible;
+  opacity: 0.5;
+}
+.desk-table .desk-table-actions {
+  text-align: right;
+}
+.desk-table .btn-table-action {
+  padding: 0 0.5rem;
+  background: none;
+  border: none;
+  transition: 0.2s;
+  opacity: 0;
+  visibility: hidden;
+}
+.desk-table .btn-table-action:hover {
+  color: unset;
+  opacity: 1 !important;
+}
+.desk-table .btn-table-action:active {
+  color: unset;
+  opacity: 0.5 !important;
+}
+
+/*# sourceMappingURL=desk-editor.css.map */

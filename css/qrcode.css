@@ -1,0 +1,23 @@
+.qrcode-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid black;
+  margin: 1rem;
+}
+.qrcode-container .qrcode-label {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+.qrcode-container .qrcode {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.qrcode-container .qrcode img {
+  width: 150px;
+  height: 150px;
+}
+
+/*# sourceMappingURL=qrcode.css.map */

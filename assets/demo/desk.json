@@ -1,0 +1,44 @@
+{
+  "desks" : [
+    {
+      "desk_id" : 0,
+      "desk_label" : "A1"
+    },
+    {
+      "desk_id" : 1,
+      "desk_label" : "A2"
+    },
+    {
+      "desk_id" : 2,
+      "desk_label" : "A3"
+    },
+    {
+      "desk_id" : 3,
+      "desk_label" : "A4"
+    },
+    {
+      "desk_id" : 4,
+      "desk_label" : "A5"
+    },
+    {
+      "desk_id" : 5,
+      "desk_label" : "A6"
+    },
+    {
+      "desk_id" : 6,
+      "desk_label" : "A7"
+    },
+    {
+      "desk_id" : 7,
+      "desk_label" : "Outdoor-1"
+    },
+    {
+      "desk_id" : 8,
+      "desk_label" : "Outdoor-2"
+    },
+    {
+      "desk_id" : 9,
+      "desk_label" : "Outdoor-3"
+    }
+  ]
+}

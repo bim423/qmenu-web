@@ -1,0 +1,269 @@
+body {
+  font-family: "Noto Sans", sans-serif;
+  background-color: #f7f7f7 !important;
+}
+
+.menu-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+}
+.menu-container .menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-container .menu-header .menu-header-logo {
+  max-height: 150px;
+}
+
+.order-checkout-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #ffffff;
+  color: #2b2b2b;
+  display: none;
+}
+.order-checkout-container label {
+  color: #a60f2c;
+  display: inline;
+  font-weight: bold;
+}
+.order-checkout-container h2 {
+  color: #a60f2c;
+  font-size: 1.4rem;
+  margin: 0 0 1rem;
+}
+.order-checkout-container .row-balance {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+}
+.order-checkout-container .row-balance .col-balance {
+  width: 50%;
+}
+.order-checkout-container .row-balance .col-balance-action {
+  width: 50%;
+  justify-content: right;
+  text-align: right;
+}
+@media screen and (max-width: 500px) {
+  .order-checkout-container .row-balance {
+    flex-direction: column;
+  }
+  .order-checkout-container .row-balance .col-balance {
+    width: 100% !important;
+    margin-bottom: 0.25rem;
+  }
+  .order-checkout-container .row-balance .col-balance-action {
+    width: 100% !important;
+    text-align: right;
+  }
+}
+
+.order-complete-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: rgba(102, 255, 137, 0.2);
+  line-height: 1.5rem;
+}
+.order-complete-container label {
+  color: darkgreen;
+  display: inline;
+  font-weight: bold;
+}
+.order-complete-container h2 {
+  color: darkgreen;
+  font-size: 1.4rem;
+  margin: 0 0 1rem;
+}
+
+.submenu-container {
+  margin-bottom: 8px;
+  padding: 8px;
+  background: #ffffff;
+}
+.submenu-container .submenu-header {
+  color: #a60f2c;
+  border-bottom-color: #606060;
+  border-bottom-style: solid;
+  border-bottom-width: 0.1rem;
+}
+.submenu-container .submenu-header h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.product-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 4px;
+  border-bottom: rgba(220, 20, 60, 0.25) dotted 2px;
+}
+.product-container .product-info-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.product-container .product-info-row .product-name {
+  margin: 0;
+  width: 65%;
+}
+.product-container .product-info-row .product-name h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.product-container .product-info-row .product-price {
+  text-align: right;
+  margin: 0;
+  width: 35%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.product-container .product-info-row .product-price .product-quantity {
+  border-radius: 10rem;
+  font-size: 0.75rem;
+  font-weight: bolder;
+  background: orange;
+  margin-right: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  color: white;
+}
+.product-container .product-detail-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.product-container .product-detail-row .product-description {
+  font-size: 0.8rem;
+  color: #989898;
+  width: 80%;
+}
+.product-container .product-detail-row .product-actions {
+  text-align: right;
+  width: 20%;
+}
+.product-container .product-detail-row .product-actions button {
+  width: 1.4rem;
+  height: 1.4rem;
+  background: white;
+  border-style: solid;
+  border-width: 0.1rem;
+  border-radius: 0.3rem;
+  padding: 0;
+}
+.product-container .product-detail-row .product-actions button span {
+  margin: auto;
+}
+.product-container .product-detail-row .product-actions .action-btn-add {
+  border-color: green;
+  color: green;
+  cursor: pointer;
+}
+.product-container .product-detail-row .product-actions .action-btn-add:hover {
+  background: green;
+  color: white;
+}
+.product-container .product-detail-row .product-actions .action-btn-add:active {
+  background: white;
+  color: green;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove {
+  border-color: crimson;
+  color: crimson;
+  cursor: pointer;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove:hover {
+  background: crimson;
+  color: white;
+}
+.product-container .product-detail-row .product-actions .action-btn-remove:active {
+  background: white;
+  color: crimson;
+}
+
+.bottom-bar {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.bottom-bar .order-summary-container {
+  display: flex;
+  align-items: center;
+  bottom: 0;
+  width: 100%;
+  max-width: 800px;
+  padding: 8px 0;
+  background: rgba(255, 255, 255, 0.9);
+  animation-duration: 0.5s;
+  transition: 0.5s;
+}
+.bottom-bar .order-summary-container .order-detail-column {
+  width: 75%;
+  padding-left: 16px;
+}
+.bottom-bar .order-summary-container .order-detail-column .order-desk {
+  color: darkgrey;
+}
+.bottom-bar .order-summary-container .order-detail-column .order-cost {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #a60f2c;
+}
+.bottom-bar .order-summary-container .order-confirm-column {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: end;
+  text-align: right;
+  width: 25%;
+  padding-right: 16px;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn {
+  border: green solid 2px;
+  border-radius: 0.35rem;
+  background: #36a836;
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem 1.5rem;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn:hover {
+  cursor: pointer;
+  background: green;
+}
+.bottom-bar .order-summary-container .order-confirm-column .confirm-order-btn:active {
+  opacity: 0.5;
+}
+
+.hidden {
+  display: none;
+}
+
+.menu-btn {
+  border: #5b5b5b solid 2px;
+  border-radius: 0.35rem;
+  background: #434343;
+  font-size: 1rem;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  transition: 0.1s;
+}
+.menu-btn:hover {
+  cursor: pointer;
+  opacity: 0.65;
+}
+.menu-btn:active {
+  opacity: 0.5;
+}
+
+.menu-btn-confirm {
+  border: green solid 2px;
+  background: #36a836;
+}
+
+/*# sourceMappingURL=menu.css.map */

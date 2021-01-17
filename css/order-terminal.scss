@@ -1,0 +1,94 @@
+main {
+  height: 80vh;
+  display: flex;
+}
+
+.order-terminal-container {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.35rem;
+  padding: 1rem;
+  overflow-y: auto;
+  height: 100%;
+
+  .order-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.35rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    background: rgba(0, 0, 0, 0.04);
+    transition: 0.5s;
+
+    .order-desk-col {
+      width: 20%;
+
+      .order-desk-name {
+        font-size: 1.6rem;
+        font-weight: bold;
+      }
+      .order-arrival-time {
+        font-size: 0.8rem;
+        color: darkgray;
+      }
+    }
+
+    .order-detail-col {
+      width: 40%;
+      color: rgba(0, 0, 0, 0.5);
+      font-weight: bold;
+    }
+
+    .order-badge-col {
+      width: 25%;
+      text-align: right;
+      font-weight: bold;
+
+      .badge-processing {
+        color: green;
+      }
+
+      .badge {
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        color: #ffffff;
+      }
+    }
+
+    .order-action-col {
+      width: 15%;
+      text-align: right;
+
+      .btn-link {
+        font-size: 1.5rem;
+      }
+
+      .order-btn-revert {
+        color: crimson
+      }
+
+      .order-btn-deliver {
+        color: green;
+      }
+
+      .order-btn-deny {
+        color: crimson;
+      }
+
+      .order-btn-approve {
+        color: green;
+      }
+    }
+  }
+
+  .order-container-warning {
+    color: #d59602;
+    background: rgba(255, 225, 0, 0.12);
+  }
+
+  .order-container-danger {
+    background-color: rgba(255, 0, 0, 0.15);
+    color: darkred;
+  }
+}

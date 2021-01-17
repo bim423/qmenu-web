@@ -1,0 +1,51 @@
+.desk-table {
+  margin: 0;
+
+  thead {
+    background: rgba(0, 0, 0, .02);
+  }
+
+  thead th {
+    font-size: 1.15rem;
+    vertical-align: middle;
+  }
+
+  tr {
+    transition: 0.2s;
+    &:hover{
+      background: rgba(0, 0, 0, .02);
+      .desk-table-actions .btn-table-action {
+          visibility: visible;
+          opacity: 0.5;
+      }
+    }
+  }
+
+  .desk-table-actions {
+    text-align: right;
+  }
+
+  .btn-table-action {
+    padding: 0 0.5rem;
+    background: none;
+    border: none;
+    transition: 0.2s;
+    opacity: 0;
+    visibility: hidden;
+
+    &:hover {
+      color: unset;
+      opacity: 1 !important;
+    }
+
+    &:active {
+      color: unset;
+      opacity: 0.5 !important;
+    }
+
+    &:focus {
+
+    }
+  }
+}
+
